@@ -5,6 +5,7 @@ import SidebarHeaderNotifications from './SidebarHeaderNotifications';
 import UserItem from './UserItem';
 import Hoverable from './Hoverable';
 import { HoverState } from './interfaces';
+import './SidebarHeader.css';
 
 export class SidebarHeader extends React.Component<SidebarHeaderProps, {}> {
     constructor(props: SidebarHeaderProps) {
@@ -17,9 +18,15 @@ export class SidebarHeader extends React.Component<SidebarHeaderProps, {}> {
                 render={
                     (state: HoverState) => {
                         let hovering = state.hovering;
+                        let hoverStyle;
+                        if (hovering) {
+                            hoverStyle = {'background': '#3E313C'}
+                        } else {
+                            hoverStyle = {'background': '#4d394b'}
+                        }
                         return (
-                            <div className="SidebarHeader">
-                                <SidebarHeaderTitle hovering={hovering}/>
+                            <div className="SidebarHeader" style={hoverStyle}>
+                                <SidebarHeaderTitle highlighted={hovering}/>
                                 <SidebarHeaderNotifications />
                                 <UserItem hovering={hovering} status={'active'}/>
                             </div>
