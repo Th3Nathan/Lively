@@ -1,9 +1,11 @@
 import * as React from 'react';
 import './UserItem.css';
 import DotIcon from './DotIcon';
+
 interface Props {
     status: String;
     highlighted: Boolean;
+    username: String;
     children?: {};
 }
 
@@ -13,12 +15,12 @@ class UserItem extends React.Component<Props, {}> {
     }
 
     render() {
-        
+        let style = this.props.highlighted ? {'color': 'white'} : {'color': '#ab9ba9'};
         return (
-            <div className="UserItem">
+            <div className="UserItem flex">
                 <DotIcon status={this.props.status} /> 
-                <div className="UserItem-name">
-
+                <div style={style} className="UserItem-name">
+                    th3nathan
                 </div>
             </div>
         );

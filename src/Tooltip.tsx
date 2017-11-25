@@ -16,11 +16,9 @@ class Tooltip extends React.Component<Props, {}> {
     }
 
     render() {
-        // Not doing this shit anymore, this if else needs
-        // to be refactored into functional comp once stuff starts working
         return (
-            <Hoverable 
-                render={(state: HoverState) => {
+            <Hoverable>
+                {(state: HoverState) => {
                     let hovering = state.hovering;
                     let tooltip;
                     if (hovering) {
@@ -31,11 +29,11 @@ class Tooltip extends React.Component<Props, {}> {
                     return (
                         <div className="Tooltip">
                             {this.props.children}
-                            {tooltip}  
+                            {/* {tooltip}   */}
                         </div>
                     );
                 }}
-            />
+            </ Hoverable>
         );
     }
 }

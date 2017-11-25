@@ -1,0 +1,9 @@
+.UserItem {}
+.UserItem-name {
+    font-size: .860rem;
+    font-weight: 500;
+    margin-left: -3px;
+    line-height: 0.85;
+    letter-spacing: .5px;
+    font-family: Helvetica;
+}

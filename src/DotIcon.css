@@ -1,0 +1,13 @@
+.DotIcon {
+    font-size: 11px;
+    margin-top: -15px;
+    margin-left: -5px;
+    padding: 14px 10px 10px 8px;
+    position: relative;
+    z-index: 99;
+}
+
+.DotIcon:hover {
+    color: black !important;
+    background: blue;
+}

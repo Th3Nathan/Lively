@@ -1,5 +1,11 @@
 .SidebarHeaderNotifications-bell {
-    margin:5px 7px 0px 0px;
+    margin:9px 10px 0px 0px;
     transition: .2s;
     font-size: 19px;
+    color: #a09a9f;
+    padding: 5px;
+}
+
+.SidebarHeaderNotifications-bell:hover {
+    color: white;
 }

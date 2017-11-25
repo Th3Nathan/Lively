@@ -6,7 +6,8 @@ interface State {
 }
 
 interface Props {
-    render: Function;
+    // tslint:disable-next-line: no-any
+    children?: any;
 }
 
 class Hoverable extends React.Component<Props, State> {
@@ -27,7 +28,7 @@ class Hoverable extends React.Component<Props, State> {
                 onMouseEnter={this.handleMouseIn}
                 onMouseLeave={this.handleMouseOut}
             >
-              {this.props.render(this.state)}
+              {this.props.children(this.state)}
             </div>
         );
     }
