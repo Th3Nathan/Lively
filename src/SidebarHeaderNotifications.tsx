@@ -1,13 +1,26 @@
 
 import * as React from 'react';
 import './SidebarHeaderNotifications.css';
+import Hoverable from './Hoverable';
+import { HoverState } from './interfaces';
 
 class SidebarHeaderNotifications extends React.Component {
     render() {
         return (
-            <div className="SidebarHeaderNotifications">
-                <i className="fa fa-bell-o" aria-hidden="true" />
-            </div>
+            <Hoverable render={
+            (state: HoverState) => {    
+                let style = state.hovering ? {'color': 'white'} : {'color': '#B7AEB5'};
+                style['padding'] = '5px';
+                return (
+                    <i 
+                        style={style} 
+                        className="fa fa-bell-o SidebarHeaderNotifications-bell" 
+                        aria-hidden="true"
+                    />
+                )
+                }
+            }
+            />
         );
     }
 }

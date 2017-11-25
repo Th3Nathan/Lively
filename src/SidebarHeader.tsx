@@ -26,9 +26,11 @@ export class SidebarHeader extends React.Component<SidebarHeaderProps, {}> {
                         }
                         return (
                             <div className="SidebarHeader" style={hoverStyle}>
-                                <SidebarHeaderTitle highlighted={hovering}/>
-                                <SidebarHeaderNotifications />
-                                <UserItem hovering={hovering} status={'active'}/>
+                                <div className="flex-between">
+                                    <SidebarHeaderTitle highlighted={hovering}/>
+                                    <SidebarHeaderNotifications />
+                                </div>
+                                <UserItem highlighted={hovering} status={'active'}/>
                             </div>
                         );
                     }

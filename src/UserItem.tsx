@@ -4,7 +4,7 @@ import DotIcon from './DotIcon';
 
 interface Props {
     status: String;
-    hovering: Boolean;
+    highlighted: Boolean;
     children?: {};
 }
 

@@ -10,7 +10,7 @@ interface Props {
 }
 
 class Hoverable extends React.Component<Props, State> {
-    state = {hovering: true};
+    state = {hovering: false};
 
     handleMouseIn = () => {
         this.setState({hovering: true});    
