@@ -12,6 +12,7 @@
     font-family: 'Times New Roman', Times, serif;
     letter-spacing: 1.5px;
     display: flex;
+    transition: 1s;
 }
 
 
@@ -20,4 +21,5 @@
     color: #B7AEB5;
     font-size: 15px;
     margin-top: 5.5px;
+    transition: .1s;
 }
