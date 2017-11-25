@@ -1,6 +1,50 @@
+
+
+/* .fade {
+    animation: 0.4s ease-out fadeIn 1;
+  }
+   */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+    }
+    100% {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 .Tooltip {
     padding: 0px;
     margin: 0px;
+    width: 0px;
+    height: 0px;
     width: fit-content;
     height: fit-content;
+    position: relative;
+    animation: 0.3s ease-in-out fadeIn 1;
+    animation-fill-mode: backwards;
+    animation-delay: .3s;
+}
+
+
+
+.Tooltip-caret {
+    top: -12px;
+    left: 2px;
+    font-size: 20px;
+    position: absolute;
+}
+
+.Tooltip-box {
+    background: black;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 9px;
+    border-radius: 7px;
+    left: -11px;
+    top: 1px;
+    position: absolute;
+
 }
