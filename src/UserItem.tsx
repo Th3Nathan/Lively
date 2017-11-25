@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './UserItem.css';
 import DotIcon from './DotIcon';
-
 interface Props {
     status: String;
     highlighted: Boolean;
@@ -14,9 +13,13 @@ class UserItem extends React.Component<Props, {}> {
     }
 
     render() {
+        
         return (
             <div className="UserItem">
                 <DotIcon status={this.props.status} /> 
+                <div className="UserItem-name">
+
+                </div>
             </div>
         );
     }
