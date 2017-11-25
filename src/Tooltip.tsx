@@ -1,24 +1,26 @@
 import * as React from 'react';
 import './Tooltip.css';
 import Hoverable from './Hoverable';
+import { HoverState } from './interfaces';
 interface Props {
     data: {
         primary: String;
         secondary?: String;
         orientation: String;
-    }
-    children?: any;
+    };
 }
 
 class Tooltip extends React.Component<Props, {}> {
     constructor(props: Props) {
-        super(props)
+        super(props);
     }
 
     render() {
-        //Not doing this shit anymore, this if else needs to be refactored into functional comp once stuff starts working
+        // Not doing this shit anymore, this if else needs
+        // to be refactored into functional comp once stuff starts working
         return (
-            <Hoverable render={(state:any) => {
+            <Hoverable 
+                render={(state: HoverState) => {
                     let hovering = state.hovering;
                     let tooltip;
                     if (hovering) {
@@ -31,9 +33,9 @@ class Tooltip extends React.Component<Props, {}> {
                             {this.props.children}
                             {tooltip}  
                         </div>
-                    )
+                    );
                 }}
-            ></Hoverable>
+            />
         );
     }
 }

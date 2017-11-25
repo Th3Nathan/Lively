@@ -4,14 +4,14 @@ import DotIcon from './DotIcon';
 
 interface Props {
     status: String;
-    children?: any;
+    hovering: Boolean;
+    children?: {};
 }
 
 class UserItem extends React.Component<Props, {}> {
     constructor(props: Props) {
-        super(props)
+        super(props);
     }
-
 
     render() {
         return (

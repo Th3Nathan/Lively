@@ -6,7 +6,7 @@ export interface Props {
 }
 
 class SidebarHeaderTitle extends React.Component<Props, {}> {
-    constructor(props:Props) {
+    constructor(props: Props) {
         super(props);
     }
     render() {
@@ -16,7 +16,7 @@ class SidebarHeaderTitle extends React.Component<Props, {}> {
                     Lively
                 </div>
                 <span>
-                    <i className="fa fa-angle-down" aria-hidden="true"></i>
+                    <i className="fa fa-angle-down" aria-hidden="true" />
                 </span>
             </div>
         );

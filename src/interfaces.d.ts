@@ -5,12 +5,11 @@ export interface SidebarHeaderProps {
 }
 
 //??
-export interface HoverState {
-    hoverable: {
-    hovering: Boolean;
-    }
-}
 
 export interface DotIconProps {
     status: String;
+}
+
+export interface HoverState {
+    hovering: Boolean;
 }

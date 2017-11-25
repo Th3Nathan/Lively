@@ -7,7 +7,7 @@ export interface Props {
 
 function Hello({ name, enthusiasmLevel = 1 }: Props) {
     if (enthusiasmLevel <= 0) {
-        throw new Error("you could be more enthusiastic");
+        throw new Error('you could be more enthusiastic');
     }
 
     return (
@@ -16,7 +16,7 @@ function Hello({ name, enthusiasmLevel = 1 }: Props) {
                 Hello {name + getExclamationMarks(enthusiasmLevel)}
             </div>
         </div>
-    )
+    );
 }
 
 export default Hello;

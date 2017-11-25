@@ -11,40 +11,37 @@ import Tooltip from './Tooltip';
 // }
 
 class DotIcon extends React.Component<DotIconProps, {}> {
-    constructor(props:DotIconProps) {
+    constructor(props: DotIconProps) {
         super(props);
     }
 
-
-    statusTooltipData = (status:String) => {
-        if (status === "active") {
+    statusTooltipData = (status: String) => {
+        if (status === 'active') {
             return {
-                primary: "Active",
-                orientation: "below"
-            }
-        }
-        else if (status === "snooze") {
+                primary: 'Active',
+                orientation: 'below'
+            };
+        } else if (status === 'snooze') {
             return {
-                primary: "Away",
-                secondary: "Notifications Snoozed",
-                orientation: "above"
-            }
-        }
-        else {
+                primary: 'Away',
+                secondary: 'Notifications Snoozed',
+                orientation: 'above'
+            };
+        } else {
             return {
-                primary: "Away",
-                orientation: "above"
-            }
+                primary: 'Away',
+                orientation: 'above'
+            };
         }
     }
 
-    iconFromStatus = (status:String) => {
-        if (status === "active") {
-            return <i style={{'color': '#38978D'}} className="fa fa-circle" aria-hidden="true"></i>
-        } else if (status === "snooze") {
-            return <i style={{'color': '#ab9ba9'}} className="fa fa-hand-o-left" aria-hidden="true"></i>
+    iconFromStatus = (status: String) => {
+        if (status === 'active') {
+            return <i style={{'color': '#38978D'}} className="fa fa-circle" aria-hidden="true" />;
+        } else if (status === 'snooze') {
+            return <i style={{'color': '#ab9ba9'}} className="fa fa-hand-o-left" aria-hidden="true" />;
         } else {
-            return <i style={{'color': '#ab9ba9'}} className="fa fa-circle-o" aria-hidden="true"></i>
+            return <i style={{'color': '#ab9ba9'}} className="fa fa-circle-o" aria-hidden="true" />;
         }
 
     }
