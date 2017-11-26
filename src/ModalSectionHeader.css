@@ -1,0 +1,25 @@
+.ModalSectionHeader {
+    margin: 0px;
+    font-family: Lato;
+    font-size: 15px;
+    color: #717274;
+    position: relative;
+}
+
+.ModalSectionHeader p {
+    margin: 0px;
+    padding-right: 13px;
+    padding-left: 15px;
+    width: fit-content;
+    position: absolute;
+    z-index: 95;
+    background-color:white;
+}
+.ModalSectionHeader hr {
+    position: absolute;
+    right: 15px;
+    top: 2px;
+    right: 11px;
+    border-top: .1px solid #ddd;
+    width: 90%;
+}
