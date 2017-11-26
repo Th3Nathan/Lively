@@ -34,7 +34,7 @@ export class SidebarHeader extends React.Component<SidebarHeaderProps, {}> {
                         <div className="SidebarHeader" style={hoverStyle}>
                             <div className="flex-between">
                                 <SidebarHeaderTitle highlighted={hovering}/>
-                                <SidebarHeaderNotifications  />
+                                <SidebarHeaderNotifications status="snoozed"  />
                             </div>
                             <UserItem 
                                 username={'th3nathan'} 
