@@ -9,6 +9,7 @@ import './SidebarHeader.css';
 interface SidebarHeaderProps {
     status: String;
     active: String; 
+    openNotificationsModal?: () => void;
 }
 
 export class SidebarHeader extends React.Component<SidebarHeaderProps, {}> {
@@ -33,7 +34,7 @@ export class SidebarHeader extends React.Component<SidebarHeaderProps, {}> {
                         <div className="SidebarHeader" style={hoverStyle}>
                             <div className="flex-between">
                                 <SidebarHeaderTitle highlighted={hovering}/>
-                                <SidebarHeaderNotifications status={'active'} />
+                                <SidebarHeaderNotifications  />
                             </div>
                             <UserItem 
                                 username={'th3nathan'} 

@@ -1,44 +1,56 @@
 import * as React from 'react';
 import './SidebarHeaderNotifications.css';
-import NotificationsModal from './NotificationsModal';
+import { openNotificationsModal } from './actions/index';
 
 import Tooltip from './Tooltip';
 
 export interface SidebarHeaderNotificationsProps {
     status: String;
+    isOpen: boolean;
+    openNotificationsModal: () => void;
 }
 
-export interface State {
-    isModalOpen: boolean;
-}
 
-class SidebarHeaderNotifications extends React.Component<SidebarHeaderNotificationsProps, State> {
-    constructor(props: SidebarHeaderNotificationsProps) {
-        super(props);
-        this.state = {
-            isModalOpen: false
-        };
-    }
-
-    openModal = () => { this.setState({ isModalOpen: true }); };
-    closeModal = () => { this.setState({ isModalOpen: false }); };
+class SidebarHeaderNotifications extends React.Component<SidebarHeaderNotificationsProps, {}> {
 
     render() {
         let fontAwesome = this.props.status === 'snoozing' ? 'clock-o' : 'bell-o';
         let tooltipData = {'orientation': 's', 'primary': 'Notifications'};
+        let style = this.props.isOpen ? {'color': 'white'} : {};
         return (
-            <div>
-                <NotificationsModal isOpen={this.state.isModalOpen} contentLabel="Modelly" closeModal={this.closeModal} />
-                <Tooltip data={tooltipData}>
-                    <i 
-                        onClick={this.openModal}
-                        className={`fa fa-${fontAwesome} SidebarHeaderNotifications-bell`}
-                        aria-hidden="true"
-                    />
-                </Tooltip>
-            </div>
+            <Tooltip data={tooltipData}>
+                <i 
+                    style={style}
+                    onClick={this.props.openNotificationsModal}
+                    className={`fa fa-${fontAwesome} SidebarHeaderNotifications-bell`}
+                    aria-hidden="true"
+                />
+            </Tooltip>
         );
     }
 }
 
-export default SidebarHeaderNotifications;
+
+import { connect, Dispatch } from 'react-redux';
+import { NotificationsModalActions } from './actions/index';
+import { StoreState } from './types/index';
+
+
+let mapStateToProps = (state: StoreState) => {
+    return {
+        isOpen: state.modals.NotificationsModal.open 
+    }
+}
+
+let mapDispatchToProps = (dispatch: Dispatch<NotificationsModalActions>) => {
+    return {
+        openNotificationsModal: () => dispatch(openNotificationsModal())
+    }
+}
+
+// I guess connect wasnt passing down some default props that sidebarheader needed. this is insane
+export function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+    return Object.assign({}, ownProps, stateProps, dispatchProps);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(SidebarHeaderNotifications);

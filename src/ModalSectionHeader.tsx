@@ -24,3 +24,4 @@ class ModalSectionHeader extends React.Component<Props, {}> {
 }
 
 export default ModalSectionHeader;
+

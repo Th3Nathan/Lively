@@ -1,18 +1,17 @@
 import * as React from 'react';
 import ReactModal from 'react-modal';
 import ModalSectionHeader from './ModalSectionHeader';
+import { closeNotificationsModal } from './actions/index';
+import './NotificationsModal.css';
 
 export interface Props {
-    isOpen: boolean;
-    closeModal: () => void;
-    contentLabel: String;
+    
 }
 
 export interface State {
-
 }
 
-class NotificationsModal extends React.Component<Props, State> {
+class NotificationsModal extends React.Component<any, {} > {
     constructor(props: Props) {
         super(props);
     }
@@ -36,7 +35,6 @@ class NotificationsModal extends React.Component<Props, State> {
         'border-radius': '12px',
         'width': '260px',
         'position': 'absolute',
-        'height': '500px',
         'padding': '17px 0px',
         'box-sizing': 'border-box',
         'box-shadow': '0 5px 10px rgba(0,0,0,.12)',
@@ -46,8 +44,8 @@ class NotificationsModal extends React.Component<Props, State> {
     render() {
         return (
         <ReactModal
-            isOpen={true}
-            onRequestClose={this.props.closeModal}
+            isOpen={this.props.isOpen}
+            onRequestClose={this.props.closeNotificationsModal}
             style={{ overlay: this.overlayStyle, content: this.modalStyle }}
             contentLabel="Example Modal"
             overlayClassName="ReactModal__Overlay"
@@ -71,4 +69,24 @@ class NotificationsModal extends React.Component<Props, State> {
     }
 }
 
-export default NotificationsModal;
+import { StoreState } from './types/index';
+import { connect, Dispatch } from 'react-redux';
+import { NotificationsModalActions } from './actions/index';
+
+let mapStateToProps = (state: StoreState) => {
+    return {
+        isOpen: state.modals.NotificationsModal.open 
+    }
+}
+
+let mapDispatchToProps = (dispatch: Dispatch<NotificationsModalActions>) => {
+    return {
+        closeNotificationsModal: () => dispatch(closeNotificationsModal())
+    }
+}
+
+export function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object) {
+    return Object.assign({}, ownProps, stateProps, dispatchProps);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(NotificationsModal);
