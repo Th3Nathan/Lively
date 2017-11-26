@@ -3,6 +3,8 @@ import './Tooltip.css';
 import Hoverable from './Hoverable';
 import { HoverState } from './interfaces';
 
+// orientatins cover all directions except for west and east
+// eg n s ne nw sw se 
 interface Props {
     data: {
         primary: String;
@@ -18,19 +20,21 @@ class Tooltip extends React.Component<Props, {}> {
 
     render() {
         let {primary, secondary, orientation} = this.props.data;
-        //padd secondary with a space if it exists
+        // padd secondary with a space if it exists
         if (secondary) {
-            secondary = " " + secondary; 
+            secondary = ' ' + secondary; 
         }
         return (
             <Hoverable>
                 {({hovering}: HoverState) => {
-                    let style = hovering ? {'visibility': 'visible'} : {'visibility': 'hidden'};
                     let tooltip = hovering ? (
-                        <div style={style} className="Tooltip delay">
-                            <i className="fa fa-caret-up Tooltip-caret" aria-hidden="true"></i>
-                            <div className="Tooltip-box">
-                                <div className={`Tooltip-primary-${orientation}`}>
+                        <div className={`Tooltip ${orientation} delay`}>
+                            <i 
+                                className={`fa fa-caret-up Tooltip-caret Tooltip-caret-${orientation}`}
+                                aria-hidden="true"
+                            />
+                            <div className={`Tooltip-box Tooltip-box-${orientation}`}>
+                                <div className={`Tooltip-primary`}>
                                     {primary}
                                     <span className="Tooltip-secondary">
                                         {secondary}
@@ -38,7 +42,7 @@ class Tooltip extends React.Component<Props, {}> {
                                 </div>
                             </div>
                         </div>
-                    ) : null
+                    ) : null;
                     return (
                         <div className="">
                             {this.props.children}

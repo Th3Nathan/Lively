@@ -1,5 +1,4 @@
 
-
 /* .fade {
     animation: 0.4s ease-out fadeIn 1;
   }
@@ -27,11 +26,7 @@
     animation-delay: .3s;
 }
 
-
-
 .Tooltip-caret {
-    top: -12px;
-    left: 2px;
     font-size: 20px;
     position: absolute;
 }
@@ -43,8 +38,58 @@
     font-size: 13px;
     padding: 9px;
     border-radius: 7px;
-    left: -11px;
-    top: 1px;
     position: absolute;
+    pointer-events: none;
+}
 
+.Tooltip-caret-se {
+    top: -7px;
+    left: 2px;
+}
+
+.Tooltip-box-se {
+    left: -11px;
+    top: 7px;
+}
+
+.Tooltip-caret-s {
+    top: -7px;
+    left: 2px;    
+}
+    
+.Tooltip-box-s {
+    left: -40px;
+    top: 7px;
+}
+
+.Tooltip-caret-sw {
+    
+}
+
+.Tooltip-box-sw {
+    
+}
+
+.Tooltip-caret-n {
+    
+}
+
+.Tooltip-box-n {
+    
+}
+
+.Tooltip-caret-nw {
+    
+}
+
+.Tooltip-box-nw {
+    
+}
+
+.Tooltip-caret-ne {
+    
+}
+
+.Tooltip-box-ne {
+    
 }

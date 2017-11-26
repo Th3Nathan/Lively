@@ -19,18 +19,18 @@ class DotIcon extends React.Component<DotIconProps, {}> {
         if (status === 'active') {
             return {
                 primary: 'Active',
-                orientation: 'below'
+                orientation: 'se'
             };
         } else if (status === 'snooze') {
             return {
                 primary: 'Away',
                 secondary: 'Notifications Snoozed',
-                orientation: 'above'
+                orientation: 'se'
             };
         } else {
             return {
                 primary: 'Away',
-                orientation: 'above'
+                orientation: 'se'
             };
         }
     }
