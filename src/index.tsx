@@ -5,10 +5,13 @@ import './index.css';
 import App from './App';
 
 // Redux
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './redux/reducers/index';
 import { StoreState } from './redux/types/index';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
+const middlewares = [thunk, createLogger];
 
 const initialState = {
   modals: {
@@ -18,7 +21,7 @@ const initialState = {
   }
 };
 
-const store = createStore<StoreState>(reducers, initialState);
+const store = createStore<StoreState>(reducers, initialState, applyMiddleware(...middlewares));
 
 ReactDOM.render(
   <Provider store={store}>

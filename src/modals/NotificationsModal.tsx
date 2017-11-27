@@ -29,6 +29,28 @@ class NotificationsModal extends React.Component<ConnectProps & ParentProps> {
         'border': '1px solid rgba(0,0,0,.15)',
     };
 
+    snoozeTimes = [
+        {text: '20 minutes', seconds: 1200}, 
+        {text: '1 hour', seconds: 3600}, 
+        {text: '2 hours', seconds: 7200}, 
+        {text: '4 hours', seconds: 14400}, 
+        {text: '24 hours', seconds: 86400} 
+    ];
+
+    constructList = () => {
+        return this.snoozeTimes.map((snoozeTime, idx) => {
+            let action = () => {
+                this.props.closeNotificationsModal();
+                // this.props.setSnoozeUntil(snoozeTime.seconds)
+            }
+            return (
+                <li onClick={action}>
+                    {snoozeTime.text}
+                </li>
+            )
+        });
+    }
+
     render() {
         return (
         <ReactModal
@@ -44,12 +66,7 @@ class NotificationsModal extends React.Component<ConnectProps & ParentProps> {
         >
             <ModalSectionHeader text={'Snooze notification:'}/>
             <ul className="NotificationsModal-options">
-                <li>20 minutes</li>
-                <li>1 hour</li>
-                <li>2 hours</li>
-                <li>4 hours</li>
-                <li>8 hours</li>
-                <li>24 hours</li>
+                {this.constructList()}
             </ul>
         </ReactModal>
     );
