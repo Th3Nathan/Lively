@@ -2,8 +2,7 @@ import * as React from 'react';
 import SidebarHeaderTitle from './SidebarHeaderTitle';
 import SidebarHeaderNotifications from './SidebarHeaderNotifications';
 import UserItem from './UserItem';
-import Hoverable from './Hoverable';
-import { HoverState } from './interfaces';
+import Hoverable from '../wrappers/Hoverable';
 import './SidebarHeader.css';
 
 interface SidebarHeaderProps {
@@ -17,24 +16,20 @@ export class SidebarHeader extends React.Component<SidebarHeaderProps, {}> {
         super(props);
     }
 
-    getStyle = (hovering: Boolean) => {
-        if (hovering) {
-            return {'background': '#3E313C'};
-        } else {
-            return {'background': '#4d394b'};
-        }
-    }
+    getStyle = (hovering: Boolean) => (
+        hovering ? {'background': '#3E313C'} : {'background': '#4d394b'}
+    )
 
     public render() {
         return (
             <Hoverable>
-                {({hovering}: HoverState) => {
+                {({hovering}: {hovering: Boolean}) => {
                     let hoverStyle = this.getStyle(hovering);
                     return (
                         <div className="SidebarHeader" style={hoverStyle}>
                             <div className="flex-between">
                                 <SidebarHeaderTitle highlighted={hovering}/>
-                                <SidebarHeaderNotifications status="snoozed"  />
+                                <SidebarHeaderNotifications status="snoozing"  />
                             </div>
                             <UserItem 
                                 username={'th3nathan'} 

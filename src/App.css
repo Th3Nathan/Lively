@@ -1,0 +1,17 @@
+.ReactModal__Overlay {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+    z-index: 998;
+    background: rgba(0, 0, 0, 0);
+    cursor: default;    
+}
+
+.ReactModal__Content {
+    background: white;
+    position: absolute;
+    outline: none;
+    box-sizing: border-box;
+}

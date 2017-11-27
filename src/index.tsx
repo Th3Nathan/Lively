@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-// import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import App from './App';
 
+// Redux
 import { createStore } from 'redux';
-import { notificationsModal } from './reducers/index';
-import { StoreState } from './types/index';
+import reducers from './redux/reducers/index';
+import { StoreState } from './redux/types/index';
 import { Provider } from 'react-redux';
 
 const initialState = {
@@ -16,10 +16,9 @@ const initialState = {
       open: false
     }
   }
-}
+};
 
-const store = createStore<StoreState>(notificationsModal, initialState);
-
+const store = createStore<StoreState>(reducers, initialState);
 
 ReactDOM.render(
   <Provider store={store}>

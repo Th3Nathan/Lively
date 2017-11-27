@@ -1,14 +1,11 @@
 
 import * as React from 'react';
 import './DotIcon.css';
-import { DotIconProps } from './interfaces';
-import Tooltip from './Tooltip';
+import Tooltip from '../wrappers/Tooltip';
 
-// interface statusTooltipData {
-//     primary: String;
-//     secondary?: String;
-//     orientation: String;
-// }
+interface DotIconProps {
+    status: String;
+}
 
 class DotIcon extends React.Component<DotIconProps, {}> {
     constructor(props: DotIconProps) {

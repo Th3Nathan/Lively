@@ -13,11 +13,11 @@ export type NotificationsModalActions = OpenNotificationsModal | CloseNotificati
 export function openNotificationsModal(): OpenNotificationsModal {
     return {
         type: constants.OPEN_NOTIFICATIONS_MODAL
-    }
+    };
 }
 
 export function closeNotificationsModal(): CloseNotificationsModal {
     return {
         type: constants.CLOSE_NOTIFICATIONS_MODAL
-    }
+    };
 }

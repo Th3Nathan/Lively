@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/lodash": "^4.14.85",
     "@types/react-modal": "^2.2.2",
     "@types/react-redux": "^4.4.47",
     "eslint": "^4.11.0",

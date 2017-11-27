@@ -2,7 +2,6 @@
 import * as React from 'react';
 import './ModalSectionHeader.css';
 
-
 export interface Props {
     text: String;
 }
@@ -24,4 +23,3 @@ class ModalSectionHeader extends React.Component<Props, {}> {
 }
 
 export default ModalSectionHeader;
-
