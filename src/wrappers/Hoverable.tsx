@@ -28,7 +28,7 @@ class Hoverable extends React.Component<Props, State> {
                 onMouseEnter={this.handleMouseIn}
                 onMouseLeave={this.handleMouseOut}
             >
-              {this.props.children(this.state)}
+                {this.props.children(this.state)}
             </div>
         );
     }

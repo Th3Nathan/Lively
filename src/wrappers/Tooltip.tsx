@@ -47,7 +47,7 @@ class Tooltip extends React.Component<Props, {}> {
                     return (
                         <div>
                             {this.props.children}
-                            {hovering ? this.construct : null}  
+                            {hovering ? this.construct() : null}  
                         </div>
                     );
                 }}

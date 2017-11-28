@@ -22,10 +22,10 @@ class NotificationsModal extends React.Component<ConnectProps & ParentProps> {
     modalStyle = {
         'top': '39px',
         'left': '172px',
-        'border-radius': '12px',
+        'borderRadius': '12px',
         'width': '260px',
         'padding': '17px 0px',
-        'box-shadow': '0 5px 10px rgba(0,0,0,.12)',
+        'boxShadow': '0 5px 10px rgba(0,0,0,.12)',
         'border': '1px solid rgba(0,0,0,.15)',
     };
 
@@ -44,7 +44,7 @@ class NotificationsModal extends React.Component<ConnectProps & ParentProps> {
                 // this.props.setSnoozeUntil(snoozeTime.seconds)
             }
             return (
-                <li onClick={action}>
+                <li onClick={action} key={idx}>
                     {snoozeTime.text}
                 </li>
             )
