@@ -6,4 +6,5 @@
     line-height: 0.85;
     letter-spacing: .5px;
     font-family: Helvetica;
+    user-select: none;
 }

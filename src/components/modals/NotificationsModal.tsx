@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactModal from 'react-modal';
 import ModalSectionHeader from './ModalSectionHeader';
-import { closeNotificationsModal } from '../redux/actions/index';
+import { closeNotificationsModal } from '../../redux/actions/index';
 import './NotificationsModal.css';
 
 export interface ConnectProps {
@@ -75,9 +75,9 @@ class NotificationsModal extends React.Component<ConnectProps & ParentProps> {
 
 // REDUX 
 
-import { StoreState } from '../redux/types/index';
+import { StoreState } from '../../redux/types/index';
 import { connect, Dispatch } from 'react-redux';
-import { NotificationsModalActions } from '../redux/actions/index';
+import { NotificationsModalActions } from '../../redux/actions/index';
 
 let mapStateToProps = (state: StoreState, ownProps: ParentProps) => {
     return {

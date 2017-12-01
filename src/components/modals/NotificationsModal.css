@@ -11,6 +11,7 @@
     padding: 4px 8px;
     cursor: pointer;
     color: #2c2d30;
+    user-select:none;
 }
 
 .NotificationsModal-options li:hover {

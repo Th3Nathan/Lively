@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './SidebarHeaderNotifications.css';
-import { openNotificationsModal } from '../redux/actions/index';
+import { openNotificationsModal } from '../../redux/actions/index';
 import Tooltip from '../wrappers/Tooltip';
 
 export interface ConnectProps {
@@ -32,8 +32,8 @@ class SidebarHeaderNotifications extends React.Component<ConnectProps & ParentPr
 // REDUX
 
 import { connect, Dispatch } from 'react-redux';
-import { NotificationsModalActions } from '../redux/actions/index';
-import { StoreState } from '../redux/types/index';
+import { NotificationsModalActions } from '../../redux/actions/index';
+import { StoreState } from '../../redux/types/index';
 
 let mapStateToProps = (state: StoreState, ownProps: ParentProps) => {
     return {

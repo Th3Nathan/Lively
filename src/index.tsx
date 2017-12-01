@@ -2,7 +2,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-import App from './App';
+
+import Routes from './routes/index';
+const App = <Routes />;
 
 // Redux
 import { createStore, applyMiddleware } from 'redux';
@@ -25,7 +27,7 @@ const store = createStore<StoreState>(reducers, initialState, applyMiddleware(..
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    {App}
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
