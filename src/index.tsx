@@ -34,10 +34,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
 const App =  (<ApolloProvider client={client as any}><Routes /></ApolloProvider>);
 
-ReactDOM.render((<Provider store={store}>{App}</Provider>),
-document.getElementById('root') as HTMLElement
+ReactDOM.render(
+  (<Provider store={store}>{App}</Provider>),
+  document.getElementById('root') as HTMLElement
 );
+
 registerServiceWorker();

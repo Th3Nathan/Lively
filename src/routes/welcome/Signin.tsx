@@ -5,35 +5,16 @@ import WelcomeHeader from './WelcomeHeader';
 import { gql, graphql } from 'react-apollo';
 
 export interface GraphQLProps {
-    mutate: (input: any) => Promise<any>
+    mutate: (input: any) => Promise<any>;
 }
 
 class Signin extends React.Component<GraphQLProps, {}> {
-    state = {url: "", error: false, loading: false}
+    state = {url: '', error: false, loading: false};
     doesTeamExist = this.props.mutate;
-
-    handleChange = (e: React.SyntheticEvent<any>): void => {
-        this.setState({url: e.currentTarget.value as HTMLInputElement})
-    }
-
-    handleSubmit = async (e: React.SyntheticEvent<any>) => {
-        e.preventDefault();
-        this.setState({ loading: true });
-        const newState = { error: false, loading: false };
-        const url = this.state.url;
-        try {
-            let response = await this.doesTeamExist({ variables: { url } });
-            newState.error = !response.data.doesTeamExist;
-        } catch(err) {
-            console.log(err);
-        } finally {
-            setTimeout(() => this.setState(newState), 1000)
-        }
-    }
 
     error = (
         <div className="SigninError">
-            <i className="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            <i className="fa fa-exclamation-triangle" aria-hidden="true"/>
             <p>
                 <b>We couldn't find your workspace. </b>
                 If you haven't created a workspace and just want to explore, you can&nbsp; 
@@ -48,21 +29,41 @@ class Signin extends React.Component<GraphQLProps, {}> {
             <i className="fa fa-arrow-right" aria-hidden="true"/>
             </span>
         </button>        
-    )
+    );
 
     loading = (
         <button className="SigninLoading">
             Loading <span> 
-            <i className="fa fa-spinner fa-spin fa-fw"></i>
+            <i className="fa fa-spinner fa-spin fa-fw"/>
             <span className="sr-only">Loading...</span>
             </span>
         </button>
-    )
-    render (){
+    );
+
+    handleChange = (e: React.SyntheticEvent<any>): void => {
+        this.setState({url: e.currentTarget.value as HTMLInputElement});
+    }
+
+    handleSubmit = async (e: React.SyntheticEvent<any>) => {
+        e.preventDefault();
+        this.setState({ loading: true });
+        const newState = { error: false, loading: false };
+        const url = this.state.url;
+        try {
+            let response = await this.doesTeamExist({ variables: { url } });
+            newState.error = !response.data.doesTeamExist;
+        } catch (err) {
+            return err;
+        } finally {
+            setTimeout(() => this.setState(newState), 1000);
+        }
+    }
+
+    render() {
         return (
             <div className="Signin">
                 <WelcomeHeader />
-                {this.state.error ? this.error : null }
+                {this.state.error ? this.error : null}
                 <div className="SigninMain">
                     <h1>Sign in to your workspace</h1>
                     <h5>Enter your workspace's <b>Lively URL</b></h5>
@@ -94,6 +95,6 @@ const doesTeamExist = gql`
     mutation($url: String!){   
         doesTeamExist(input: {url: $url})
     }
-`
+`;
 
 export default graphql(doesTeamExist)(Signin);

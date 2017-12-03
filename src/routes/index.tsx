@@ -5,11 +5,11 @@ import {
     Switch
 } from 'react-router-dom';
 // import Home from './home';
-import Signin from './welcome/Signin'
+import Signin from './welcome/Signin';
 export default () => (
     <BrowserRouter> 
         <Switch>
-            <Route path="/" exact component={Signin} />
+            <Route path="/" exact={true} component={Signin} />
         </Switch>
     </BrowserRouter>
 );

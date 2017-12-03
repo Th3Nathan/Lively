@@ -3,7 +3,7 @@ import './WelcomeHeader.css';
 const logo = require('../../assets/logo.png');
 
 class WelcomeHeader extends React.Component {
-    render (){
+    render() {
         return (
             <div className="WelcomeHeader">
                 <div className="flex">

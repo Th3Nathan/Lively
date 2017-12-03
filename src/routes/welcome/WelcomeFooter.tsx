@@ -2,10 +2,10 @@ import * as React from 'react';
 import './WelcomeFooter.css';
 
 class WelcomeFooter extends React.Component {
-    render (){
+    render() {
         return (
             <div className="WelcomeFooter">
-                <div className = "WelcomeFooterLinks">
+                <div className="WelcomeFooterLinks">
                     <a 
                         href="https://www.linkedin.com/in/nathan-vass-4b9490132/" 
                         className="WelcomeFooterItem"
