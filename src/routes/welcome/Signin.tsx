@@ -31,7 +31,7 @@ class Signin extends React.Component {
 
     constructButton = () => (
         <button type="submit" className="SigninButton">
-            Continue <span className="arrow">
+            Continue <span>
             <i className="fa fa-arrow-right" aria-hidden="true"/>
             </span>
         </button>        
@@ -40,7 +40,7 @@ class Signin extends React.Component {
 
     constructLoading = () => (
         <button className="SigninLoading">
-            Loading <span className="arrow"> 
+            Loading <span> 
             <i className="fa fa-spinner fa-spin fa-fw"></i>
             <span className="sr-only">Loading...</span>
             </span>
