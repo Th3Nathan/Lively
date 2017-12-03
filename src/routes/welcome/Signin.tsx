@@ -2,20 +2,33 @@ import * as React from 'react';
 import './Signin.css';
 import WelcomeFooter from './WelcomeFooter';
 import WelcomeHeader from './WelcomeHeader';
+import { gql, graphql } from 'react-apollo';
 
-class Signin extends React.Component {
+export interface GraphQLProps {
+    mutate: (input: any) => Promise<any>
+}
+
+class Signin extends React.Component<GraphQLProps, {}> {
     state = {url: "", error: false, loading: false}
+    doesTeamExist = this.props.mutate;
 
-    handleChange = (e: any) => {
-        this.setState({url: e.target.value})
+    handleChange = (e: React.SyntheticEvent<any>): void => {
+        this.setState({url: e.currentTarget.value as HTMLInputElement})
     }
 
-    handleSubmit = (e: any) => {
+    handleSubmit = async (e: React.SyntheticEvent<any>) => {
         e.preventDefault();
-        this.setState({loading: true, error: false})
-        setTimeout(() => {
-            this.setState({loading: false, error: true})
-        }, 1000)
+        this.setState({ loading: true });
+        const newState = { error: false, loading: false };
+        const url = this.state.url;
+        try {
+            let response = await this.doesTeamExist({ variables: { url } });
+            newState.error = !response.data.doesTeamExist;
+        } catch(err) {
+            console.log(err);
+        } finally {
+            setTimeout(() => this.setState(newState), 1000)
+        }
     }
 
     error = (
@@ -74,4 +87,13 @@ class Signin extends React.Component {
         );
     }
 }
-export default Signin;
+
+// GQL 
+
+const doesTeamExist = gql`
+    mutation($url: String!){   
+        doesTeamExist(input: {url: $url})
+    }
+`
+
+export default graphql(doesTeamExist)(Signin);
