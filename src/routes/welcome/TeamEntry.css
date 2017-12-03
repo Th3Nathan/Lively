@@ -37,7 +37,7 @@
 
 .TeamEntryMain h5 {
     font-weight: 500;
-    font-size: 15px;
+    font-size: 15.5px;
     text-align: left;
     width: 375px;
     margin:auto;
@@ -46,7 +46,7 @@
 }
 
 .TeamEntryMain h4 {
-    font-size: 15px;
+    font-size: 15.5px;
     font-weight: 100;
     margin-top: -10px;
 }
@@ -95,5 +95,5 @@
     margin-top: 67px;
     text-align: center;
     margin-bottom: 100px;
-    font-size: 15px;
+    font-size: 15.5px;
 }

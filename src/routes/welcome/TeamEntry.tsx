@@ -6,10 +6,8 @@ import { gql, graphql } from 'react-apollo';
 import {Submit, Loading} from './Buttons';
 import Error from './Error';
 
-class Signin extends React.Component<{}, {}> {
+class TeamEntry extends React.Component<any, {}> {
     state = {email: '', password: '', error: false, loading: false};
-    name = "App Academy";
-    url = "lively.com/app-academy";
 
     handleChange = (e: React.SyntheticEvent<any>): void => {
         this.setState({
@@ -32,7 +30,8 @@ class Signin extends React.Component<{}, {}> {
     }
 
     render() {
-        return (
+        console.log(this.props.data)
+        return this.props.data.loading ? null : (
             <div className="TeamEntry">
                 <WelcomeHeader />
                 <Error visable={this.state.error}>
@@ -41,8 +40,8 @@ class Signin extends React.Component<{}, {}> {
                      <a href="#">try the demo</a>       
                 </Error>
                 <div className="TeamEntryMain">
-                    <h1>Sign in to {this.name}</h1>
-                    <h4>{this.url}</h4>
+                    <h1>Sign in to {this.props.data.teamFromUrl.name}</h1>
+                    <h4>{this.props.data.teamFromUrl.url}</h4>
                     <h5>Enter your <b>email address</b> and <b>password.</b></h5>
                     <form action="post" onSubmit={this.handleSubmit}> 
                         <div className="TeamEntryInputs">
@@ -75,10 +74,14 @@ class Signin extends React.Component<{}, {}> {
 
 // GQL 
 
-const doesTeamExist = gql`
-    mutation($url: String!){   
-        doesTeamExist(input: {url: $url})
+const teamFromUrl = gql`
+    query {
+        teamFromUrl(input:{url:"app-academy"}) {
+            name
+            url
+        }
     }
 `;
 
-export default graphql(doesTeamExist)(Signin);
+
+export default graphql(teamFromUrl)(TeamEntry);
