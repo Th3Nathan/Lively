@@ -14,8 +14,13 @@
     text-decoration: underline;
 }
 
+.flex {
+    display: flex;
+}
+
 .WelcomeHeader {
     display: flex;
+    justify-content: space-between;
     position: fixed;
     height: 70px;
     width: 100%;
@@ -42,6 +47,27 @@
     top: 3px;
     font-family: 'sans-serif';
     cursor: pointer;
+}
+
+.SigninNavs {
+    padding: 15px 40px;
+}
+
+.SigninNavs div {
+    color: #717274;
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: 9px;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: .8;
+    height: 30px;
+    padding: 10px 10px 0px 10px;
+}
+
+.SigninNavs div:hover {
+    background: #eeeef1;
+    opacity: 1;
 }
 
 .SigninMain, .SigninError {

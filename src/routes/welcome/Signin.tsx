@@ -50,8 +50,18 @@ class Signin extends React.Component {
         return (
             <div className="Signin">
                 <div className="WelcomeHeader">
-                    <img src={logo}/>
-                    <h2>Lively</h2>
+                    <div className="flex">
+                        <img src={logo}/>
+                        <h2>Lively</h2>
+                    </div>
+                    <div className="SigninNavs flex">
+                        <div>
+                            Create a new workspace
+                        </div>
+                        <div> 
+                            Try a demonstration
+                        </div>
+                    </div>
                 </div> 
                 {this.state.error ? this.errorMessage() : null }
                 <div className="SigninMain">
