@@ -1,0 +1,55 @@
+.flex {
+    display: flex;
+}
+
+.WelcomeHeader {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    height: 70px;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    top: 0;
+    z-index: 5;
+}
+
+.WelcomeHeader img {
+    width: 37px;
+    height: 37px;
+    left: 5px;
+    position: relative;
+    top: 20px;
+    cursor: pointer;
+}
+
+.WelcomeHeader h2 {
+    position: relative;
+    font-weight: 500;
+    letter-spacing: -.5px;
+    left: 6px;
+    top: 3px;
+    font-family: 'sans-serif';
+    cursor: pointer;
+}
+
+.WelcomeNavs {
+    padding: 15px 40px;
+}
+
+.WelcomeNavs div {
+    color: #717274;
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: 9px;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: .8;
+    height: 30px;
+    padding: 10px 10px 0px 10px;
+}
+
+.WelcomeNavs div:hover {
+    background: #eeeef1;
+    opacity: 1;
+}

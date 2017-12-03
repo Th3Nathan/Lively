@@ -1,0 +1,46 @@
+.WelcomeFooter {
+    border-top: 1px solid #e8e8e8;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background: #fff;
+    padding: 40px 0 0;
+    box-sizing: border-box;
+    padding-left: 120px;
+    padding-right: 120px;
+    font-size: 20px;
+    height: 125px;
+}
+
+.WelcomeFooterLinks {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    min-width: 200px;
+    margin: auto;
+}
+
+.WelcomeFooter a {
+    text-decoration: none;
+}
+
+.WelcomeFooter a:hover {
+    text-decoration: underline;
+}
+
+.WelcomeFooterLinks :nth-child(1) {
+    color: #ff9000;
+}
+
+.WelcomeFooterLinks :nth-child(2) {
+    color: #e32072;    
+}
+
+.WelcomeFooterLinks :nth-child(3) {
+    color: #2ea664;    
+}
+
+.WelcomeFooterLinks :nth-child(4) {
+    color: #4b6bc6;   
+}
