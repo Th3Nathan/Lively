@@ -46,7 +46,7 @@ class Signin extends React.Component<GraphQLProps, {}> {
                     <h1>Sign in to your workspace</h1>
                     <h5>Enter your workspace's <b>Lively URL</b></h5>
                     <form action="post" onSubmit={this.handleSubmit}> 
-                        <div>
+                        <div className="SigninInputWrap">
                             <div>lively.com/</div>
                             <input 
                                 placeholder="your-workspace-url" 

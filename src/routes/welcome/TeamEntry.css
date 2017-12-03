@@ -1,0 +1,99 @@
+.TeamEntry {
+    background: #f9f9f9;
+    color: #2c2d30;
+    margin-top: 70px;
+}
+
+.TeamEntry a {
+    color: #0576b9;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.TeamEntry a:hover {
+    text-decoration: underline;
+}
+
+.TeamEntryMain {
+    background: white;
+    background-color: #fff;
+    border-radius: .25rem;
+    box-shadow: 0 1px 0 rgba(0,0,0,.25);
+    border: 1px solid #e8e8e8;
+    margin:auto;
+    width: 570px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    top: 27px;
+}
+
+.TeamEntryMain h1 {
+    letter-spacing: -.5px;
+    word-spacing: -.6px;
+    font-size: 30px;
+    margin-top: 5px;
+}
+
+.TeamEntryMain h5 {
+    font-weight: 500;
+    font-size: 15px;
+    text-align: left;
+    width: 375px;
+    margin:auto;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.TeamEntryMain h4 {
+    font-size: 15px;
+    font-weight: 100;
+    margin-top: -10px;
+}
+
+.TeamEntryInputs {
+    width: 375px;
+    font-size: 20px;
+    margin-top: 0px;
+    margin:auto;
+    margin-bottom: -10px;
+}
+
+.TeamEntryMain div:first-of-type div {
+    font-weight: bold;
+    margin-right: 5px;
+    margin-top: 12px;
+}
+
+.TeamEntryInputs input {
+    font-size: 1.25rem;
+    line-height: normal;
+    padding: .75rem;
+    border: 1px solid #a0a0a2;
+    border-radius: .25rem;
+    outline: none;
+    color: #2c2d30;
+    width: 100%;
+    transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
+    height: auto;  
+    box-sizing: border-box;
+    margin-bottom: 8px;
+}
+
+.TeamEntryInputs input:focus {
+    border-color: #717274;
+}
+
+.TeamEntryMain > p {
+    width: 58%;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: 47px;
+}
+
+.TeamEntry > p {
+    margin-top: 67px;
+    text-align: center;
+    margin-bottom: 100px;
+    font-size: 15px;
+}
