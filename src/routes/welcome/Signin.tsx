@@ -5,12 +5,11 @@ import WelcomeHeader from './WelcomeHeader';
 import { gql, graphql } from 'react-apollo';
 import {Submit, Loading} from './Buttons';
 import Error from './Error';
-
 export interface GraphQLProps {
     mutate: (input: any) => Promise<any>;
 }
 
-class Signin extends React.Component<GraphQLProps, {}> {
+class Signin extends React.Component<any, {}> {
     state = {url: '', error: false, loading: false};
     doesTeamExist = this.props.mutate;
 
@@ -29,7 +28,12 @@ class Signin extends React.Component<GraphQLProps, {}> {
         } catch (err) {
             return err;
         } finally {
-            setTimeout(() => this.setState(newState), 1000);
+            setTimeout(() => {
+                this.setState(newState);
+                if (!newState.error) {
+                    this.props.history.push(this.state.url)
+                };
+            }, 1000);
         }
     }
 
