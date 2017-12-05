@@ -10,6 +10,7 @@ class TeamEntryForm extends React.Component<any, any> {
         loading: false,
         badEmail: false,
         badPassword: false,
+        shouldFocus: false,
     };
 
     badInputStyle = {border: '1px solid #d72b3f', background: '#fbeaec'}
@@ -41,6 +42,7 @@ class TeamEntryForm extends React.Component<any, any> {
     focus = (type: string) => {
         let focusFunc = (input: any) => input && input.focus();
         let noFocus = (input: any) => null;
+        if (!this.state.shouldFocus) return noFocus;
         const {badEmail, badPassword} = this.state;
         if (type === 'email') {
             return badEmail ? focusFunc : noFocus;
@@ -53,6 +55,8 @@ class TeamEntryForm extends React.Component<any, any> {
 
     handleSubmit = async (e: React.SyntheticEvent<any>) => {
         e.preventDefault();
+        this.setState({shouldFocus: true});
+        setTimeout(() => this.setState({shouldFocus: false}),0);
         if (this.checkBadFields()) return null;
         const { email, password } = this.state;
         const newState = { loading: false };
@@ -91,6 +95,7 @@ class TeamEntryForm extends React.Component<any, any> {
                         value={email} 
                         onChange={this.handleChange} 
                         spellCheck={false}
+                        onBlur={this.checkBadFields}
                     />
                     <input 
                         style={badPassword ? this.badInputStyle : {}}
@@ -101,6 +106,7 @@ class TeamEntryForm extends React.Component<any, any> {
                         value={password} 
                         onChange={this.handleChange} 
                         spellCheck={false}
+                        onBlur={this.checkBadFields}
                     />
                 </div>
                 {loading ? Loading() : Submit(false,"Sign in")}
