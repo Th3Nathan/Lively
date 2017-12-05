@@ -30,7 +30,6 @@ class TeamEntry extends React.Component<any, {}> {
     }
 
     render() {
-        console.log(this.props.data)
         return this.props.data.loading ? null : (
             <div className="TeamEntry">
                 <WelcomeHeader />
@@ -75,13 +74,21 @@ class TeamEntry extends React.Component<any, {}> {
 // GQL 
 
 const teamFromUrl = gql`
-    query {
-        teamFromUrl(input:{url:"app-academy"}) {
+    query teamFromUrl($url: String!) {
+        teamFromUrl(input:{url: $url}) {
             name
             url
+            ok
         }
     }
 `;
 
-
-export default graphql(teamFromUrl)(TeamEntry);
+export default graphql(teamFromUrl, 
+    {options: (ownProps: any) => {
+        return {
+            variables: 
+                {url: ownProps.match.params.team }
+            }
+        }
+    }
+)(TeamEntry);
