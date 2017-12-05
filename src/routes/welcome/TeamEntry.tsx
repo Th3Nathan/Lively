@@ -2,6 +2,7 @@ import * as React from 'react';
 import './TeamEntry.css';
 import WelcomeFooter from './WelcomeFooter';
 import WelcomeHeader from './WelcomeHeader';
+import Glitch from './Glitch';
 import { gql, graphql } from 'react-apollo';
 import {Submit, Loading} from './Buttons';
 import Error from './Error';
@@ -30,6 +31,8 @@ class TeamEntry extends React.Component<any, {}> {
     }
 
     render() {
+        if (this.props.data.loading === true) return null;
+        if (this.props.data.teamFromUrl.ok === false) return <Glitch />;
         return this.props.data.loading ? null : (
             <div className="TeamEntry">
                 <WelcomeHeader />
