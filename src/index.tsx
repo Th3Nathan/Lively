@@ -29,8 +29,10 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 
+const uri = process.env.NODE_ENV == 'production' ? 'https://lively-server.herokuapp.com/graphql' : 'http://localhost:8080/graphql'
+
 const client = new ApolloClient({
-  link: new HttpLink({ uri: 'http://localhost:8080/graphql' }),
+  link: new HttpLink({ uri }),
   cache: new InMemoryCache(),
 });
 
