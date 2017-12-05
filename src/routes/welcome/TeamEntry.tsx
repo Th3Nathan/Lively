@@ -15,6 +15,11 @@ class TeamEntry extends React.Component<any, any> {
     loginUser = this.props.mutate;
 
     setError = (error: boolean) => setTimeout(() => this.setState({error}), 1000);
+    // maybe I can pass in a function to the form, onResponse. It will deal with 
+    // this is definitly better than what i have now, because responsibility for 
+    // how to deal with graphql query should be in the same place as the component making 
+    // the queries. 
+
 
     render() {
         if (this.props.data.loading === true) return null;
@@ -35,6 +40,7 @@ class TeamEntry extends React.Component<any, any> {
                         loginUser={this.props.mutate} 
                         data={this.props.data} 
                         setError={this.setError} 
+                        url={data.teamFromUrl.url}
                     />
                 </div>
                 <p>Trying to create a workspace? <a href="#">Create a new workspace</a></p>
@@ -57,8 +63,8 @@ const teamFromUrl = gql`
 `;
 
 const loginUser = gql`
-    mutation loginUser($email: String!, $password: String!) {
-        loginUser(input: {email: $email, password: $password}) {
+    mutation loginUser($email: String!, $password: String!, $url: String!) {
+        loginUser(input: {email: $email, password: $password, url: $url}) {
             ok
             user {
                 username

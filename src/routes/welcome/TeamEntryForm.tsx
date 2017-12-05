@@ -58,8 +58,9 @@ class TeamEntryForm extends React.Component<any, any> {
         const newState = { loading: false };
         this.setState({ loading: true });
         let error = false;
+        let url = this.props.url;
         try {
-            let response = await this.props.loginUser({ variables: {email, password }});
+            let response = await this.props.loginUser({ variables: {email, password, url }});
             if (response.data.loginUser.ok) {
                 // WIN 
                 console.log(response.data.loginUser);
