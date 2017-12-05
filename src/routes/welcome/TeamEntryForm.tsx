@@ -39,6 +39,16 @@ class TeamEntryForm extends React.Component<any, any> {
         return badInputFound;
     }
 
+    handlePasswordFocus = () => {
+        // no red error if they type a correct email then click on password field
+        const { email, password, shouldFocus } = this.state;
+        if (validateEmail(email) && !shouldFocus){
+            if (password == '') {
+                this.setState({badPassword: false});
+            }
+        }
+    }
+
     focus = (type: string) => {
         let focusFunc = (input: any) => input && input.focus();
         let noFocus = (input: any) => null;
@@ -107,6 +117,7 @@ class TeamEntryForm extends React.Component<any, any> {
                         onChange={this.handleChange} 
                         spellCheck={false}
                         onBlur={this.checkBadFields}
+                        onFocus={this.handlePasswordFocus}
                     />
                 </div>
                 {loading ? Loading() : Submit(false,"Sign in")}

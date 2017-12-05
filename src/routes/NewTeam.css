@@ -1,0 +1,22 @@
+.NewTeamHeader {
+    display: flex;
+}
+
+.NewTeamHeader img {
+    width: 37px;
+    height: 37px;
+    left: 5px;
+    position: relative;
+    top: 20px;
+    cursor: pointer;
+}
+
+.NewTeamHeader h2 {
+    position: relative;
+    font-weight: 500;
+    letter-spacing: -.5px;
+    left: 6px;
+    top: 3px;
+    font-family: 'sans-serif';
+    cursor: pointer;
+}
