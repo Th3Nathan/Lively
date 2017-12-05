@@ -6,18 +6,58 @@ import Glitch from './Glitch';
 import { gql, graphql } from 'react-apollo';
 import {Submit, Loading} from './Buttons';
 import Error from './Error';
+import { validateEmail } from '../../util';
 
 class TeamEntry extends React.Component<any, {}> {
-    state = {email: '', password: '', error: false, loading: false};
-
+    state = {
+        email: '', 
+        password: '', 
+        error: false, 
+        loading: false,
+        badEmail: false,
+        badPassword: false,
+    };
+    badInputStyle = {border: '1px solid #d72b3f', background: '#fbeaec'}
     handleChange = (e: React.SyntheticEvent<any>): void => {
         this.setState({
             [e.currentTarget.name]: e.currentTarget.value as HTMLInputElement
         });
     }
 
+    checkBadFields = () => {
+        const {email, password} = this.state;
+        let badInputFound = false;
+        if (email === "" || !validateEmail(email)) {
+            this.setState({badEmail: true});
+            badInputFound = true;
+        } else {
+            this.setState({badEmail: false})
+        } 
+        if (password === "") {
+            this.setState({badPassword: true});
+            badInputFound = true;           
+        } else {
+            this.setState({badPassword: false})
+        }
+        return badInputFound;
+    }
+
+    focus = (type: string) => {
+        let focusFunc = (input: any) => input && input.focus();
+        let noFocus = (input: any) => null;
+        const {badEmail, badPassword} = this.state;
+        if (type === 'email') {
+            return badEmail ? focusFunc : noFocus;
+        } else if (!badEmail) {
+           return badPassword ? focusFunc : noFocus;
+        } else {
+            return noFocus;
+        }
+    }
+
     handleSubmit = async (e: React.SyntheticEvent<any>) => {
         e.preventDefault();
+        if (this.checkBadFields()) return null;
         this.setState({ loading: true });
         const newState = { error: false, loading: false };
         try {
@@ -33,10 +73,11 @@ class TeamEntry extends React.Component<any, {}> {
     render() {
         if (this.props.data.loading === true) return null;
         if (this.props.data.teamFromUrl.ok === false) return <Glitch />;
+        const {badEmail, badPassword, error, email, password, loading} = this.state;
         return this.props.data.loading ? null : (
             <div className="TeamEntry">
                 <WelcomeHeader />
-                <Error visable={this.state.error}>
+                <Error visable={error}>
                     <b>We couldn't find your workspace. </b>
                      If you haven't created a workspace and just want to explore, you can&nbsp; 
                      <a href="#">try the demo</a>       
@@ -48,23 +89,27 @@ class TeamEntry extends React.Component<any, {}> {
                     <form action="post" onSubmit={this.handleSubmit}> 
                         <div className="TeamEntryInputs">
                             <input 
+                                style={badEmail ? this.badInputStyle : {}}
                                 placeholder="you@example.com" 
+                                ref={this.focus('email')}
                                 name="email"
                                 type="text" 
-                                value={this.state.email} 
+                                value={email} 
                                 onChange={this.handleChange} 
                                 spellCheck={false}
                             />
                             <input 
+                                style={badPassword ? this.badInputStyle : {}}
                                 placeholder="password"
+                                ref={this.focus('password')}
                                 name="password" 
                                 type="password" 
-                                value={this.state.password} 
+                                value={password} 
                                 onChange={this.handleChange} 
                                 spellCheck={false}
                             />
                         </div>
-                        {this.state.loading ? Loading() : Submit(false,"Sign in")}
+                        {loading ? Loading() : Submit(false,"Sign in")}
                     </form>
                 </div>
                 <p>Trying to create a workspace? <a href="#">Create a new workspace</a></p>
