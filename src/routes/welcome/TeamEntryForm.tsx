@@ -21,9 +21,12 @@ class TeamEntryForm extends React.Component<any, any> {
         });
     }
 
-    checkBadFields = () => {
+    checkBadFields = (submitting = false) => {
         const {email, password} = this.state;
         let badInputFound = false;
+        if ((email === '' && password == '') && !submitting){
+            return true;
+        } 
         if (email === "" || !validateEmail(email)) {
             this.setState({badEmail: true});
             badInputFound = true;
@@ -67,7 +70,7 @@ class TeamEntryForm extends React.Component<any, any> {
         e.preventDefault();
         this.setState({shouldFocus: true});
         setTimeout(() => this.setState({shouldFocus: false}),0);
-        if (this.checkBadFields()) return null;
+        if (this.checkBadFields(true)) return null;
         const { email, password } = this.state;
         const newState = { loading: false };
         this.setState({ loading: true });
@@ -105,7 +108,7 @@ class TeamEntryForm extends React.Component<any, any> {
                         value={email} 
                         onChange={this.handleChange} 
                         spellCheck={false}
-                        onBlur={this.checkBadFields}
+                        onBlur={() => this.checkBadFields(false)}
                     />
                     <input 
                         style={badPassword ? this.badInputStyle : {}}
@@ -116,7 +119,7 @@ class TeamEntryForm extends React.Component<any, any> {
                         value={password} 
                         onChange={this.handleChange} 
                         spellCheck={false}
-                        onBlur={this.checkBadFields}
+                        onBlur={() => this.checkBadFields(false)}
                         onFocus={this.handlePasswordFocus}
                     />
                 </div>
