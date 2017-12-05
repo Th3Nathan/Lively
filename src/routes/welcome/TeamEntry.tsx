@@ -8,7 +8,7 @@ import {Submit, Loading} from './Buttons';
 import Error from './Error';
 import { validateEmail } from '../../util';
 
-class TeamEntry extends React.Component<any, {}> {
+class TeamEntry extends React.Component<any, any> {
     state = {
         email: '', 
         password: '', 
@@ -18,6 +18,7 @@ class TeamEntry extends React.Component<any, {}> {
         badPassword: false,
     };
     badInputStyle = {border: '1px solid #d72b3f', background: '#fbeaec'}
+    loginUser = this.props.mutate;
     handleChange = (e: React.SyntheticEvent<any>): void => {
         this.setState({
             [e.currentTarget.name]: e.currentTarget.value as HTMLInputElement
@@ -58,12 +59,19 @@ class TeamEntry extends React.Component<any, {}> {
     handleSubmit = async (e: React.SyntheticEvent<any>) => {
         e.preventDefault();
         if (this.checkBadFields()) return null;
-        this.setState({ loading: true });
+        const { email, password } = this.state;
         const newState = { error: false, loading: false };
+        this.setState({ loading: true });
         try {
-            // let response = await this.doesTeamExist({ variables: { url } });
-            // newState.error = !response.data.doesTeamExist;
+            let response = await this.loginUser({ variables: {email, password }});
+            if (response.data.loginUser.ok) {
+                // WIN 
+                console.log(response.data.loginUser);
+            } else {
+                newState.error = true
+            }
         } catch (err) {
+            console.log(err);
             return err;
         } finally {
             setTimeout(() => this.setState(newState), 1000);
@@ -78,9 +86,7 @@ class TeamEntry extends React.Component<any, {}> {
             <div className="TeamEntry">
                 <WelcomeHeader />
                 <Error visable={error}>
-                    <b>We couldn't find your workspace. </b>
-                     If you haven't created a workspace and just want to explore, you can&nbsp; 
-                     <a href="#">try the demo</a>       
+                    Sorry, you entered an incorrect email address or password.       
                 </Error>
                 <div className="TeamEntryMain">
                     <h1>Sign in to {this.props.data.teamFromUrl.name}</h1>
@@ -131,6 +137,19 @@ const teamFromUrl = gql`
     }
 `;
 
+const loginUser = gql`
+    mutation loginUser($email: String!, $password: String!) {
+        loginUser(input: {email: $email, password: $password}) {
+            ok
+            user {
+                username
+                id 
+                email
+            }
+        }
+    }
+`;
+
 export default graphql(teamFromUrl, 
     {options: (ownProps: any) => {
         return {
@@ -139,4 +158,4 @@ export default graphql(teamFromUrl,
             }
         }
     }
-)(TeamEntry);
+)((graphql(loginUser))(TeamEntry));

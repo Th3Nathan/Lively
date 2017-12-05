@@ -6,12 +6,12 @@
     border: 1px solid #e8e8e8;
     margin:auto;
     width: 570px;
-    padding: 30px;
-    text-align: center;
+    /* padding: 30px; */
+    text-align: left;
     position: relative;
     top: 27px;
     display: flex;
-    height: 65px;
+    height: inherit;
     margin-bottom: 20px;
     border-left: 5px solid #cf1b1b;
     padding: 10px 40px 5px 20px;
@@ -20,10 +20,11 @@
 .Error i {
     color: #cf1b1b;
     font-size: 25px;
+    margin-right: 10px;
 }
 
 .Error p {
-    margin-top: 2px;
-    line-height: 25px;
+    margin-top: 4px;
+    margin-bottom: 10px;
 }
 
