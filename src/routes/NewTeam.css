@@ -71,5 +71,29 @@
 
 .NewTeamButtonWrap {
     text-align: center;
-    margin-top: 20px;
 }
+
+.NewTeam .Error {
+    margin: auto;
+    width: 380px;
+    text-align: left;
+    position: relative;
+    top: -23px;
+    left: -13px;
+    height: inherit;
+    margin-bottom: 20px;
+}
+
+.NewTeamError {
+    position: relative;
+    height: 30px;
+}
+
+.NewTeamMain a {
+    text-decoration: none;
+    color: deeppink;
+}
+
+.NewTeamMain a:hover {
+    text-decoration: underline;
+} 

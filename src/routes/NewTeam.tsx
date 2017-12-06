@@ -36,19 +36,17 @@ class NewTeam extends React.Component<any, any> {
     }
 
     render() {
-        let {username, password, email, error} = this.state;
+        let {username, password, email} = this.state;
         return (
             <div className="NewTeam">
                 <div className="NewTeamHeader">
                     <img src={logo}/>
                     <h2>Lively</h2>
                 </div>
-                <Error visable={error}>
-                    {/* you know what to render, the error from the server */}
-                </Error>
                 <div className="NewTeamMain">
                     <h1>Introduce Yourself!</h1>
                     <p>Please enter your email, a password, and a display name, how your teammates on Lively will see and refer to you</p>
+                    <p>Already have an account? <a href="#">login to create a workspace</a></p>
                     <form action="post" onSubmit={this.handleSubmit}>
                         <div className="NewTeamMainLabel"><b>Your email</b></div>
                         <input 
@@ -78,6 +76,11 @@ class NewTeam extends React.Component<any, any> {
                             spellCheck={false}
                         />
                         <div className="NewTeamButtonWrap">
+                        <div className="NewTeamError">
+                            <Error visable={true}>
+                                Theres and error yo profdlfjdlfjdljfldj
+                            </Error>
+                        </div>
                         <NewTeamButton type="submit" enabled={this.state.ready} msg="Create Team" />
                         </div>
                     </form>
