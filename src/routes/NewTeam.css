@@ -25,4 +25,51 @@
 .NewTeamMain {
     width: 480px;
     color: #2c2d30;
+    margin: auto;
+    margin-top: -30px;
+}
+
+.NewTeamMain h1 {
+    font-weight: 100;
+    font-family: Lato;
+    letter-spacing: 1px;
+    font-size: 41px;
+}
+
+.NewTeamMain p {
+    font-size: 1.25rem;
+    color: #717274;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    font-family: Lato;
+    font-size: 19.5px;
+    line-height: 22px;
+}
+
+.NewTeam input {
+    font-size: 1.25rem;
+    line-height: normal;
+    padding: .75rem;
+    border: 1px solid #a0a0a2;
+    border-radius: .25rem;
+    outline: none;
+    color: #2c2d30;
+    width: 445px;
+    transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
+    height: auto;  
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.NewTeam input:focus {
+    border-color: #717274;
+}
+
+.NewTeamMainLabel {
+    margin-bottom: 15px;
+}
+
+.NewTeamButtonWrap {
+    text-align: center;
+    margin-top: 20px;
 }

@@ -25,3 +25,24 @@
 .submit:hover {
     box-shadow: 0px .2px .2px #1c1c1d;
 }
+
+.newteamdisabled {
+    background-color: #717274!important;
+    color: #fff;
+    opacity: .35;
+    -moz-opacity: .35;
+    -khtml-opacity: .35;
+    box-shadow: none!important;
+    pointer-events: none;    
+    margin-top: 0px;
+}
+
+.newteam {
+    margin-top: 0px;
+    background: #2ea664;
+    color: #fff;
+}
+
+.newteam:hover {
+    box-shadow: 0px .2px .2px #1c1c1d; 
+}

@@ -19,3 +19,14 @@ export const Loading = () => (
         </span>
     </button>
 );
+
+export const NewTeamButton = ({enabled, msg}: any) => {
+    let className = enabled ? 'newteam' : 'newteamdisabled';
+    return (
+        <button className={`Button ${ className }`}>
+                {msg} <span> 
+                <i className="fa fa-arrow-right"/>
+                </span>
+        </button>
+    )
+};
