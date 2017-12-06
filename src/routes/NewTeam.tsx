@@ -33,16 +33,18 @@ class NewTeam extends React.Component<any, any> {
     }
 
     handleChange = (e: any) => {
-        this.setState({[e.currentTarget.name]: e.currentTarget.value})
-        if (this.allValid()) {
+        let newState = this.state;
+        newState[e.currentTarget.name] = e.currentTarget.value;
+        this.setState(newState);
+        if (this.allValid(newState)) {
             this.setState({ready: true})
         } else {
             this.setState({ready: false})
         }
     }
 
-    allValid = () => {
-        const {username, password, email} = this.state;
+    allValid = (newState: any) => {
+        const {username, password, email} = newState;
         return username && email && password;
     }
 
