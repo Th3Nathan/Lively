@@ -7,8 +7,32 @@ import Error from './welcome/Error';
 const logo = require('../assets/logo.png');
 
 class NewTeam extends React.Component<any, any> {
-
     state = {email: '', username: '', password: '', ready: false, error: false}
+    newUserDisplay = (
+        <div>
+            <h1>Introduce Yourself!</h1>
+            <p>Please enter your email, a password, and a display name, how your teammates on Lively will see and refer to you</p>
+            <p>Already have an account? <a href="#">login to create a workspace</a></p>
+        </div>
+    );
+    
+    existingUserDisplay = (
+        <div>
+            <h1>Welcome Back!</h1>
+            <p>Please log in with your credentials to create a new workspace.</p>
+            <p>Don't have an account? <a href="#">signup to create your first workspace</a></p>
+        </div>
+    );
+    
+    getDisplay = () => {
+        debugger;
+        if (this.props.location.pathname === '/createnew') {
+            return this.newUserDisplay; 
+        } else {
+            return this.existingUserDisplay;
+        }
+    }
+
     handleChange = (e: any) => {
         this.setState({[e.currentTarget.name]: e.currentTarget.value})
         if (this.allValid()) {
@@ -44,9 +68,7 @@ class NewTeam extends React.Component<any, any> {
                     <h2>Lively</h2>
                 </div>
                 <div className="NewTeamMain">
-                    <h1>Introduce Yourself!</h1>
-                    <p>Please enter your email, a password, and a display name, how your teammates on Lively will see and refer to you</p>
-                    <p>Already have an account? <a href="#">login to create a workspace</a></p>
+                    {this.getDisplay()}
                     <form action="post" onSubmit={this.handleSubmit}>
                         <div className="NewTeamMainLabel"><b>Your email</b></div>
                         <input 
@@ -91,5 +113,3 @@ class NewTeam extends React.Component<any, any> {
 }
 
 export default NewTeam;
-
-

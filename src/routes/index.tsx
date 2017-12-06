@@ -12,7 +12,8 @@ export default () => (
     <BrowserRouter> 
         <Switch>
             <Route path="/" exact={true} component={Signin} />
-            <Route path="/create" exact={true} component={NewTeam} /> 
+            <Route path="/createnew" exact={true} component={NewTeam} /> 
+            <Route path="/createexisting" exact={true} component={NewTeam} /> 
             <Route path="/:team" exact={true} component={TeamEntry}/>
         </Switch>
     </BrowserRouter>
