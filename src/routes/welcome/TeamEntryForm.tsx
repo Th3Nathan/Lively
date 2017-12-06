@@ -77,10 +77,10 @@ class TeamEntryForm extends React.Component<any, any> {
         let error = false;
         let url = this.props.url;
         try {
-            let response = await this.props.loginUser({ variables: {email, password, url }});
-            if (response.data.loginUser.ok) {
+            let response = await this.props.teamLogin({ variables: {email, password, url }});
+            if (response.data.teamLogin.ok) {
                 // WIN 
-                console.log(response.data.loginUser);
+                console.log(response.data.teamLogin);
             } else {
                 error = true;
             }

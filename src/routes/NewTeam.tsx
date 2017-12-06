@@ -1,35 +1,34 @@
 import * as React from 'react';
 import './NewTeam.css';
-// import './Button.css';
+import { gql, graphql, compose } from 'react-apollo';
 import {NewTeamButton} from './welcome/Buttons'; 
-import {validateEmail} from '../util';
 import Error from './welcome/Error';
 const logo = require('../assets/logo.png');
 
+const newUserDisplay = () => (
+    <div>
+        <h1>Introduce Yourself!</h1>
+        <p>Please enter your email, a password, and a display name, how your teammates on Lively will see and refer to you</p>
+        <p>Already have an account? <a href="#">login to create a workspace</a></p>
+    </div>
+);
+
+const existingUserDisplay = () => (
+    <div>
+        <h1>Welcome Back!</h1>
+        <p>Please log in with your credentials to create a new workspace.</p>
+        <p>Don't have an account? <a href="#">signup to create your first workspace</a></p>
+    </div>
+);
+
 class NewTeam extends React.Component<any, any> {
-    state = {email: '', username: '', password: '', ready: false, error: false}
-    newUserDisplay = (
-        <div>
-            <h1>Introduce Yourself!</h1>
-            <p>Please enter your email, a password, and a display name, how your teammates on Lively will see and refer to you</p>
-            <p>Already have an account? <a href="#">login to create a workspace</a></p>
-        </div>
-    );
-    
-    existingUserDisplay = (
-        <div>
-            <h1>Welcome Back!</h1>
-            <p>Please log in with your credentials to create a new workspace.</p>
-            <p>Don't have an account? <a href="#">signup to create your first workspace</a></p>
-        </div>
-    );
+    state = {email: '', username: '', password: '', ready: false, error: false, errorMsg: ''}
     
     getDisplay = () => {
-        debugger;
         if (this.props.location.pathname === '/createnew') {
-            return this.newUserDisplay; 
+            return newUserDisplay(); 
         } else {
-            return this.existingUserDisplay;
+            return existingUserDisplay();
         }
     }
 
@@ -44,19 +43,19 @@ class NewTeam extends React.Component<any, any> {
 
     allValid = () => {
         const {username, password, email} = this.state;
-        let validEmail = validateEmail(email);
-        let validUsername = (username.length >= 2 && username.length < 25);
-        let validPassword = (password.length >= 5 && password.length < 25);
-        return validEmail && validUsername && validPassword;
+        return username && email && password;
     }
 
-    handleSubmit = (e: any) => {
+    handleSubmit = async (e: any) => {
         e.preventDefault();
         this.setState({ready: false});
-        setTimeout(() => this.setState({ready: true}), 1500)
         let user = (({username, password, email}) => (
             {username, password, email}))(this.state);
-        console.log(user);
+        let mutation = (this.props.location.pathname === '/createnew') ? 'createUser' : 'loginUser';
+        let response = await this.props[mutation]({variables: user});
+        let errorMsg = response.data[mutation].ok ? '' : response.data[mutation].error.message
+        console.log(response);
+        this.setState({errorMsg, ready: true});
     }
 
     render() {
@@ -99,8 +98,8 @@ class NewTeam extends React.Component<any, any> {
                         />
                         <div className="NewTeamButtonWrap">
                         <div className="NewTeamError">
-                            <Error visable={true}>
-                                Theres and error yo profdlfjdlfjdljfldj
+                            <Error visable={this.state.errorMsg !== ''}>
+                                {this.state.errorMsg}
                             </Error>
                         </div>
                         <NewTeamButton type="submit" enabled={this.state.ready} msg="Create Team" />
@@ -112,4 +111,39 @@ class NewTeam extends React.Component<any, any> {
     }
 }
 
-export default NewTeam;
+
+const createUser = gql`
+mutation createUser($email: String!, $password: String!, $username: String!) {
+    createUser(input: {email: $email, password: $password, username: $username}) {
+        ok
+        error {
+            message
+        }
+        user {
+            username
+            id 
+            email
+        }
+    }
+}
+`;
+
+const loginUser = gql`
+mutation createUser($email: String!, $password: String!, $username: String!) {
+    loginUser(input: {email: $email, password: $password, username: $username}) {
+        ok
+        error {
+            message
+        }
+        user {
+            username
+            id 
+            email
+        }
+    }
+}
+`;
+export default compose (
+graphql(loginUser, {name: 'loginUser'}),
+graphql(createUser, {name: 'createUser'}),
+)(NewTeam);

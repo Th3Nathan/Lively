@@ -12,7 +12,7 @@ class TeamEntry extends React.Component<any, any> {
         error: false
     };
 
-    loginUser = this.props.mutate;
+    teamLogin = this.props.mutate;
 
     setError = (error: boolean) => setTimeout(() => this.setState({error}), 1000);
     // maybe I can pass in a function to the form, onResponse. It will deal with 
@@ -37,7 +37,7 @@ class TeamEntry extends React.Component<any, any> {
                     <h4>{data.teamFromUrl.url}</h4>
                     <h5>Enter your <b>email address</b> and <b>password.</b></h5>
                     <TeamEntryForm 
-                        loginUser={this.props.mutate} 
+                        teamLogin={this.props.mutate} 
                         data={this.props.data} 
                         setError={this.setError} 
                         url={data.teamFromUrl.url}
@@ -62,9 +62,9 @@ const teamFromUrl = gql`
     }
 `;
 
-const loginUser = gql`
-    mutation loginUser($email: String!, $password: String!, $url: String!) {
-        loginUser(input: {email: $email, password: $password, url: $url}) {
+const teamLogin = gql`
+    mutation teamLogin($email: String!, $password: String!, $url: String!) {
+        teamLogin(input: {email: $email, password: $password, url: $url}) {
             ok
             user {
                 username
@@ -83,4 +83,4 @@ export default graphql(teamFromUrl,
             }
         }
     }
-)((graphql(loginUser))(TeamEntry));
+)((graphql(teamLogin))(TeamEntry));
