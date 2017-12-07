@@ -8,17 +8,17 @@ class WelcomeHeader extends React.Component {
     render() {
         return (
             <div className="WelcomeHeader">
-                <div className="flex">
+                <a href="/" className="WelcomeHeaderLink flex">
                     <img src={logo}/>
                     <h2>Lively</h2>
-                </div>
+                </a>
                 <div className="WelcomeNavs flex">
-                    <div>
+                    <a href="/createnew">
                         Create a new workspace
-                    </div>
-                    <div> 
+                    </a>
+                    <a href="#"> 
                         Try a demonstration
-                    </div>
+                    </a>
                 </div>
             </div> 
         );

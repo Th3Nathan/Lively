@@ -2,6 +2,14 @@
     display: flex;
 }
 
+.WelcomeHeaderLink {
+    color: inherit !important;
+}
+
+.WelcomeHeaderLink:hover {
+    text-decoration: none !important;
+}
+
 .WelcomeHeader {
     display: flex;
     justify-content: space-between;
@@ -37,8 +45,9 @@
     padding: 15px 40px;
 }
 
-.WelcomeNavs div {
-    color: #717274;
+.WelcomeNavs a {
+    text-decoration: none;
+    color: #717274 !important;
     font-size: 15px;
     font-weight: 700;
     margin-left: 9px;
@@ -48,6 +57,7 @@
     padding: 10px 10px 0px 10px;
 }
 
-.WelcomeNavs div:hover {
+.WelcomeNavs a:hover {
     background: #eeeef1;
+    text-decoration: none !important;
 }
