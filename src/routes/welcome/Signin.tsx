@@ -2,38 +2,55 @@ import * as React from 'react';
 import './Signin.css';
 import WelcomeFooter from './WelcomeFooter';
 import WelcomeHeader from './WelcomeHeader';
-import { gql, graphql } from 'react-apollo';
-import {Submit, Loading} from './Buttons';
+import { gql, graphql, QueryProps, MutationFunc } from 'react-apollo';
+import { Submit, Loading } from './Buttons';
 import Error from './Error';
-export interface GraphQLProps {
-    mutate: (input: any) => Promise<any>;
+import { OperationVariables } from 'react-apollo/types';
+
+interface ParentProps {
+    id: string;
+    history: {
+        push: (url: string) => void;
+    };
 }
 
-class Signin extends React.Component<any, {}> {
-    state = {url: '', error: false, loading: false};
-    doesTeamExist = this.props.mutate;
+interface GraphQLProps extends ParentProps {
+    data?: QueryProps<OperationVariables> & Partial<{ doesTeamExist: boolean}>;
+    mutate?: MutationFunc<{ doesTeamExist: boolean; }, OperationVariables> | undefined; 
+} 
 
-    handleChange = (e: React.SyntheticEvent<any>): void => {
-        this.setState({url: e.currentTarget.value as HTMLInputElement});
+interface State {
+    url: string;
+    error: boolean;
+    loading: boolean;
+}
+class Signin extends React.Component<GraphQLProps, State> {
+    state = {url: '', error: false, loading: false};
+
+    handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+        this.setState({url: e.currentTarget.value});
     }
 
-    handleSubmit = async (e: React.SyntheticEvent<any>) => {
+    handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         this.setState({ loading: true });
         const newState = { error: false, loading: false };
         const url = this.state.url;
         try {
-            let response = await this.doesTeamExist({ variables: { url } });
+            let response = await this.props.mutate!({ variables: { url } });
             newState.error = !response.data.doesTeamExist;
         } catch (err) {
             return err;
         } finally {
-            setTimeout(() => {
-                this.setState(newState);
-                if (!newState.error) {
-                    this.props.history.push(this.state.url)
-                };
-            }, 1000);
+            setTimeout(
+                () => {  
+                    this.setState(newState);
+                    if (!newState.error) {
+                        this.props.history.push(this.state.url);
+                    }
+                }, 
+                1000
+            );
         }
     }
 
@@ -60,7 +77,7 @@ class Signin extends React.Component<any, {}> {
                                 spellCheck={false}
                             />
                         </div>
-                        {this.state.loading ? Loading() : Submit("arrow-right","Continue")}
+                        {this.state.loading ? Loading() : Submit('arrow-right', 'Continue')}
                     </form>
                     <p>Don't know your workspace URL? <a href="#">Find your workspace</a></p>
                 </div>
@@ -79,4 +96,4 @@ const doesTeamExist = gql`
     }
 `;
 
-export default graphql(doesTeamExist)(Signin);
+export default graphql<{doesTeamExist: boolean}, ParentProps>(doesTeamExist)(Signin);

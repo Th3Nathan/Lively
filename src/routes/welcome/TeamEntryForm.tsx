@@ -15,7 +15,7 @@ interface State {
 interface Props {
     url: string;
     data: string;
-    setError: (error: boolean) => number; 
+    setError: (error: boolean) => void; 
     teamLogin(options: {variables: {
         url: string;
         password: string; 

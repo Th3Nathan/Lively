@@ -29,14 +29,17 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 
-const uri = process.env.NODE_ENV == 'production' ? 'https://lively-server.herokuapp.com/graphql' : 'http://localhost:8080/graphql'
+const apiUrl = 'https://lively-server.herokuapp.com/graphql';
+const localUrl = 'http://localhost:8080/graphql';
+
+const uri = process.env.NODE_ENV === 'production' ? apiUrl : localUrl;
 
 const client = new ApolloClient({
   link: new HttpLink({ uri }),
   cache: new InMemoryCache(),
 });
 
-const App =  (<ApolloProvider client={client as any}><Routes /></ApolloProvider>);
+const App =  (<ApolloProvider client={client as any}><Routes /></ApolloProvider>); // tslint:disable-line
 
 ReactDOM.render(
   (<Provider store={store}>{App}</Provider>),

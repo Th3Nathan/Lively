@@ -14,7 +14,7 @@ class TeamEntry extends React.Component<any, any> {
 
     teamLogin = this.props.mutate;
 
-    setError = (error: boolean) => setTimeout(() => this.setState({error}), 1000);
+    setError = (error: boolean) => setTimeout(() => this.setState({error}), 1000) && null;
     // maybe I can pass in a function to the form, onResponse. It will deal with 
     // this is definitly better than what i have now, because responsibility for 
     // how to deal with graphql query should be in the same place as the component making 
