@@ -4,15 +4,11 @@ import './DotIcon.css';
 import Tooltip from '../wrappers/Tooltip';
 
 interface DotIconProps {
-    status: String;
+    status: string;
 }
 
 class DotIcon extends React.Component<DotIconProps, {}> {
-    constructor(props: DotIconProps) {
-        super(props);
-    }
-
-    statusTooltipData = (status: String) => {
+    statusTooltipData = (status: string) => {
         if (status === 'active') {
             return {
                 primary: 'Active',
@@ -32,7 +28,7 @@ class DotIcon extends React.Component<DotIconProps, {}> {
         }
     }
 
-    iconFromStatus = (status: String) => {
+    iconFromStatus = (status: string) => {
         if (status === 'active') {
             return <i style={{'color': '#38978D'}} className="fa fa-circle" aria-hidden="true" />;
         } else if (status === 'snooze') {
@@ -40,8 +36,8 @@ class DotIcon extends React.Component<DotIconProps, {}> {
         } else {
             return <i style={{'color': '#ab9ba9'}} className="fa fa-circle-o" aria-hidden="true" />;
         }
-
     }
+    
     render() {
         return (
             <Tooltip data={this.statusTooltipData(this.props.status)}>

@@ -1,21 +1,17 @@
 import * as React from 'react';
+import Hoverable from '../wrappers/Hoverable';
 import SidebarHeaderTitle from './SidebarHeaderTitle';
 import SidebarHeaderNotifications from './SidebarHeaderNotifications';
 import UserItem from './UserItem';
-import Hoverable from '../wrappers/Hoverable';
 import './SidebarHeader.css';
 
 interface SidebarHeaderProps {
-    status: String;
-    active: String; 
+    status: string;
+    active: string; 
     openNotificationsModal?: () => void;
 }
 
 export class SidebarHeader extends React.Component<SidebarHeaderProps, {}> {
-    constructor(props: SidebarHeaderProps) {
-        super(props);
-    }
-
     getStyle = (hovering: Boolean) => (
         hovering ? {'background': '#3E313C'} : {'background': '#4d394b'}
     )
@@ -23,7 +19,7 @@ export class SidebarHeader extends React.Component<SidebarHeaderProps, {}> {
     public render() {
         return (
             <Hoverable>
-                {({hovering}: {hovering: Boolean}) => {
+                {({hovering}: {hovering: boolean}) => {
                     let hoverStyle = this.getStyle(hovering);
                     return (
                         <div className="SidebarHeader" style={hoverStyle}>

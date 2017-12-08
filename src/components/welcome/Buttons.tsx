@@ -24,13 +24,12 @@ export const Loading = () => (
 interface NTBInput {
     enabled: boolean;
     msg: string;
-    type?: string;
 } 
 
-export const NewTeamButton = ({enabled, msg, type}: NTBInput) => {
+export const NewTeamButton = ({enabled, msg}: NTBInput) => {
     let className = enabled ? 'newteam' : 'newteamdisabled';
     return (
-        <button className={`Button ${ className }`}>
+        <button type="submit" className={`Button ${ className }`}>
                 {msg} <span> 
                 <i className="fa fa-arrow-right"/>
                 </span>

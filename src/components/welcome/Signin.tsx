@@ -1,11 +1,11 @@
 import * as React from 'react';
-import './Signin.css';
+import { gql, graphql, QueryProps, MutationFunc } from 'react-apollo';
+import { OperationVariables } from 'react-apollo/types';
+import { Submit, Loading } from './Buttons';
 import WelcomeFooter from './WelcomeFooter';
 import WelcomeHeader from './WelcomeHeader';
-import { gql, graphql, QueryProps, MutationFunc } from 'react-apollo';
-import { Submit, Loading } from './Buttons';
 import Error from './Error';
-import { OperationVariables } from 'react-apollo/types';
+import './Signin.css';
 
 interface ParentProps {
     id: string;
@@ -24,6 +24,7 @@ interface State {
     error: boolean;
     loading: boolean;
 }
+
 class Signin extends React.Component<GraphQLProps, State> {
     state = {url: '', error: false, loading: false};
 
@@ -37,10 +38,11 @@ class Signin extends React.Component<GraphQLProps, State> {
         const newState = { error: false, loading: false };
         const url = this.state.url;
         try {
-            let response = await this.props.mutate!({ variables: { url } });
-            newState.error = !response.data.doesTeamExist;
+            const response = await this.props.mutate!({ variables: { url } });
+            const actualTeamEntered = response.data.doesTeamExist;
+            newState.error = !actualTeamEntered;
         } catch (err) {
-            return err;
+            throw 'Server is down';
         } finally {
             setTimeout(
                 () => {  

@@ -1,13 +1,12 @@
 import * as React from 'react';
-import './TeamEntry.css';
+import { gql, graphql, QueryProps, MutationFunc } from 'react-apollo';
+import { OperationVariables } from 'react-apollo/types';
 import WelcomeFooter from './WelcomeFooter';
 import WelcomeHeader from './WelcomeHeader';
 import Glitch from './Glitch';
-import { gql, graphql, QueryProps, MutationFunc } from 'react-apollo';
 import Error from './Error';
 import TeamEntryForm from './TeamEntryForm';
-import { OperationVariables } from 'react-apollo/types';
-// import { OperationVariables } from 'react-apollo/types';
+import './TeamEntry.css';
 
 interface State {
     error: boolean;
@@ -54,26 +53,25 @@ class TeamEntry extends React.Component<AllProps, State> {
     // the queries. 
 
     render() {
-        if (!this.props.data) { return null; }
-        if (this.props.data.loading === true) { return null; }
-        const data = this.props.data.teamFromUrl;
-        if (!data) { return null; }
-        if (!data.ok) { return <Glitch />; }
-        const {error} = this.state;
+        const data = this.props.data;
+        if (!data || !data.teamFromUrl || data.teamFromUrl.ok === undefined) { return null; }
+        const response = data.teamFromUrl;
+        if (!response.ok!) { return <Glitch />; }
+        const {state, props, setError} = this;
         return (
             <div className="TeamEntry">
                 <WelcomeHeader />
-                <Error visable={error}>
+                <Error visable={state.error}>
                     Sorry, you entered an incorrect email address or password.       
                 </Error>
                 <div className="TeamEntryMain">
-                    <h1>Sign in to {data.name}</h1>
-                    <h4>{data.url}</h4>
+                    <h1>Sign in to {response.name}</h1>
+                    <h4>{response.url}</h4>
                     <h5>Enter your <b>email address</b> and <b>password.</b></h5>
                     <TeamEntryForm 
-                        teamLogin={this.props.mutate} 
-                        setError={this.setError} 
-                        url={data.url}
+                        teamLogin={props.mutate} 
+                        setError={setError} 
+                        url={response.url}
                     />
                 </div>
                 <p>Trying to create a workspace? <a href="#">Create a new workspace</a></p>
@@ -108,7 +106,7 @@ const teamLogin = gql`
     }
 `;
 
-// couldnt figure out this type
+// trouble figuring out this time and composing the queries
 export default graphql<{}, any>( // tslint:disable-line 
     teamFromUrl,
     {

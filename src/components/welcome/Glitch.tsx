@@ -6,9 +6,7 @@ import './Glitch.css';
 const background = require('../../assets/mountain.jpeg');
 
 class Glitch extends React.Component {
-    style = {
-        backgroundImage: `url(${background}`
-    };
+    style = { backgroundImage: `url(${background}` };
 
     render() {
         return (

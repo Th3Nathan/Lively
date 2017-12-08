@@ -1,22 +1,24 @@
 import * as React from 'react';
-import './SidebarHeaderNotifications.css';
 import { openNotificationsModal } from '../../redux/actions/index';
 import Tooltip from '../wrappers/Tooltip';
+import './SidebarHeaderNotifications.css';
 
-export interface ConnectProps {
+interface ConnectProps {
     isOpen: boolean;
     openNotificationsModal: () => void;
 }
 
-export interface ParentProps {
-    status: String;
+interface ParentProps {
+    status: string;
 }
 
 class SidebarHeaderNotifications extends React.Component<ConnectProps & ParentProps> {
+    fontAwesome = this.props.status === 'snoozing' ? 'clock-o' : 'bell-o';
+    tooltipData = {'orientation': 's', 'primary': 'Notifications'};
+    style = this.props.isOpen ? {'color': 'white'} : {};
+
     render() {
-        let fontAwesome = this.props.status === 'snoozing' ? 'clock-o' : 'bell-o';
-        let tooltipData = {'orientation': 's', 'primary': 'Notifications'};
-        let style = this.props.isOpen ? {'color': 'white'} : {};
+        const {fontAwesome, tooltipData, style} = this;
         return (
             <Tooltip data={tooltipData}>
                 <i 
@@ -35,17 +37,13 @@ import { connect, Dispatch } from 'react-redux';
 import { NotificationsModalActions } from '../../redux/actions/index';
 import { StoreState } from '../../redux/types/index';
 
-let mapStateToProps = (state: StoreState, ownProps: ParentProps) => {
-    return {
-        isOpen: state.modals.NotificationsModal.open,
-        status: ownProps.status
-    };
-};
+let mapStateToProps = (state: StoreState, ownProps: ParentProps) => ({
+    isOpen: state.modals.NotificationsModal.open,
+    status: ownProps.status
+});
 
-let mapDispatchToProps = (dispatch: Dispatch<NotificationsModalActions>) => {
-    return {
-        openNotificationsModal: () => dispatch(openNotificationsModal())
-    };
-};
+let mapDispatchToProps = (dispatch: Dispatch<NotificationsModalActions>) => ({
+    openNotificationsModal: () => dispatch(openNotificationsModal())
+});
 
-export default connect<{}, {}, ParentProps> (mapStateToProps, mapDispatchToProps)  (SidebarHeaderNotifications);
+export default connect<{}, {}, ParentProps> (mapStateToProps, mapDispatchToProps)(SidebarHeaderNotifications);

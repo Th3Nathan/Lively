@@ -1,14 +1,11 @@
-
 import * as React from 'react';
 import './SidebarHeaderTitle.css';
-export interface Props {
-    highlighted: Boolean;
+
+interface Props {
+    highlighted: boolean;
 }
 
 class SidebarHeaderTitle extends React.Component<Props, {}> {
-    constructor(props: Props) {
-        super(props);
-    }
     render() {
         let style = this.props.highlighted ? {'color': 'white'} : {'color': '#B7AEB5'};
         return (

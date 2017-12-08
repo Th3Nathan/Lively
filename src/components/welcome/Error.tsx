@@ -7,8 +7,8 @@ interface Props {
 
 class Error extends React.Component<Props> {
     render() {
-        if (!this.props.visable) { return null; }
-        return (
+        return this.props.visable ? null :
+         (
             <div className="Error">
                 <i className="fa fa-exclamation-triangle" aria-hidden="true"/>
                 <p>
