@@ -2,6 +2,7 @@ import * as React from 'react';
 import './TeamEntry.css';
 import { Submit, Loading } from './Buttons';
 import { validateEmail } from '../../util';
+import { MutationFunc } from 'react-apollo';
 
 interface State {
     email: string;
@@ -12,19 +13,22 @@ interface State {
     shouldFocus: boolean;
 }
 
+type MutationPayload = {
+    teamLogin: {
+        ok: boolean;
+    }
+};
+  
+type MutationInput = {
+    url: string;
+    password: string; 
+    email: string
+ };
+  
 interface Props {
     url: string;
-    data: string;
     setError: (error: boolean) => void; 
-    teamLogin(options: {variables: {
-        url: string;
-        password: string; 
-        email: string
-    }}): {data: {
-        teamLogin: {
-            ok: boolean; 
-        }
-    }};
+    teamLogin: MutationFunc<MutationPayload, MutationInput>;
 }
 
 class TeamEntryForm extends React.Component<Props, State> {
@@ -102,6 +106,7 @@ class TeamEntryForm extends React.Component<Props, State> {
         let url = this.props.url;
         try {
             let response = await this.props.teamLogin({ variables: {email, password, url }});
+            if (!response.data) { throw 'Lost Connection to server'; } // use redux to throw error page if server down?
             if (response.data.teamLogin.ok) {
                 // WIN 
             } else {
@@ -145,9 +150,8 @@ class TeamEntryForm extends React.Component<Props, State> {
                         onFocus={this.handlePasswordFocus}
                     />
                 </div>
-                {loading ? Loading() : Submit(false, 'Sign in')}
+                {loading ? Loading() : Submit('', 'Sign in')}
             </form>
-
         );
     }
 }

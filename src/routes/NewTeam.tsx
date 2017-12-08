@@ -1,14 +1,18 @@
 import * as React from 'react';
 import './NewTeam.css';
-import { gql, graphql, compose } from 'react-apollo';
-import {NewTeamButton} from './welcome/Buttons'; 
+import { gql, graphql, compose, QueryProps, MutationFunc } from 'react-apollo';
+import { NewTeamButton } from './welcome/Buttons'; 
 import Error from './welcome/Error';
+import { OperationVariables } from 'react-apollo/types';
 const logo = require('../assets/logo.png');
 
 const newUserDisplay = () => (
     <div>
         <h1>Introduce Yourself!</h1>
-        <p>Please enter your email, a password, and a display name, how your teammates on Lively will see and refer to you</p>
+        <p>
+            Please enter your email, a password, and a display name,
+             how your teammates on Lively will see and refer to you
+        </p>
         <p>Already have an account? <a href="/createexisting">login to create a workspace</a></p>
     </div>
 );
@@ -21,8 +25,40 @@ const existingUserDisplay = () => (
     </div>
 );
 
-class NewTeam extends React.Component<any, any> {
-    state = {email: '', username: '', password: '', ready: false, error: false, errorMsg: ''}
+interface ParentProps {
+    location: {
+        pathname: string
+    };
+}
+
+interface Response {
+    ok: boolean;
+    error: {
+        message: string
+    };
+    user: {
+        username: string;
+        id: number;
+        email: string;
+    };    
+}
+
+interface AllProps extends ParentProps {
+    data?: QueryProps<OperationVariables> & Partial<{ loginUser: Response, createUser: Response }>;
+    mutate?: MutationFunc<{}, OperationVariables> | undefined; 
+} 
+
+interface State {
+    email: string;
+    username: string;
+    password: string;
+    ready: boolean;
+    error: boolean;
+    errorMsg: string;
+}
+
+class NewTeam extends React.Component<AllProps, State> {
+    state = {email: '', username: '', password: '', ready: false, error: false, errorMsg: ''};
     
     getDisplay = () => {
         if (this.props.location.pathname === '/createnew') {
@@ -32,31 +68,30 @@ class NewTeam extends React.Component<any, any> {
         }
     }
 
-    handleChange = (e: any) => {
+    handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         let newState = this.state;
         newState[e.currentTarget.name] = e.currentTarget.value;
         this.setState(newState);
         if (this.allValid(newState)) {
-            this.setState({ready: true})
+            this.setState({ready: true});
         } else {
-            this.setState({ready: false})
+            this.setState({ready: false});
         }
     }
 
-    allValid = (newState: any) => {
+    allValid = (newState: State) => {
         const {username, password, email} = newState;
         return username && email && password;
     }
 
-    handleSubmit = async (e: any) => {
+    handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         this.setState({ready: false});
         let user = (({username, password, email}) => (
             {username, password, email}))(this.state);
         let mutation = (this.props.location.pathname === '/createnew') ? 'createUser' : 'loginUser';
         let response = await this.props[mutation]({variables: user});
-        let errorMsg = response.data[mutation].ok ? '' : response.data[mutation].error.message
-        console.log(response);
+        let errorMsg = response.data[mutation].ok ? '' : response.data[mutation].error.message;
         this.setState({errorMsg, ready: true});
     }
 
@@ -112,7 +147,6 @@ class NewTeam extends React.Component<any, any> {
         );
     }
 }
-
 
 const createUser = gql`
 mutation createUser($email: String!, $password: String!, $username: String!) {

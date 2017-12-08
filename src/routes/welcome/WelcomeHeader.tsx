@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './WelcomeHeader.css';
 
-declare var require: any
 const logo = require('../../assets/logo.png');
 
 class WelcomeHeader extends React.Component {

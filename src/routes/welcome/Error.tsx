@@ -1,8 +1,13 @@
 import * as React from 'react';
 import './Error.css';
-class Error extends React.Component<any> {
+
+interface Props {
+    visable: boolean;
+}
+
+class Error extends React.Component<Props> {
     render() {
-        if (!this.props.visable) return null;
+        if (!this.props.visable) { return null; }
         return (
             <div className="Error">
                 <i className="fa fa-exclamation-triangle" aria-hidden="true"/>
@@ -10,7 +15,7 @@ class Error extends React.Component<any> {
                     {this.props.children}
                 </p>
             </div>
-        )
+        );
     }
 }
 

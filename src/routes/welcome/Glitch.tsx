@@ -8,7 +8,7 @@ const background = require('../../assets/mountain.jpeg');
 class Glitch extends React.Component {
     style = {
         backgroundImage: `url(${background}`
-    }
+    };
 
     render() {
         return (

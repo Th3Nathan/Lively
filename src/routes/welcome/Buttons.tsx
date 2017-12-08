@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './Buttons.css';
-export const Submit = (fa: any, text: any) => (
+
+export const Submit = (fa: string, text: string) => (
     <button type="submit" className="Button submit">
         {text} {
             fa ? (
@@ -20,7 +21,13 @@ export const Loading = () => (
     </button>
 );
 
-export const NewTeamButton = ({enabled, msg}: any) => {
+interface NTBInput {
+    enabled: boolean;
+    msg: string;
+    type?: string;
+} 
+
+export const NewTeamButton = ({enabled, msg, type}: NTBInput) => {
     let className = enabled ? 'newteam' : 'newteamdisabled';
     return (
         <button className={`Button ${ className }`}>
@@ -28,5 +35,5 @@ export const NewTeamButton = ({enabled, msg}: any) => {
                 <i className="fa fa-arrow-right"/>
                 </span>
         </button>
-    )
+    );
 };

@@ -3,11 +3,44 @@ import './TeamEntry.css';
 import WelcomeFooter from './WelcomeFooter';
 import WelcomeHeader from './WelcomeHeader';
 import Glitch from './Glitch';
-import { gql, graphql } from 'react-apollo';
+import { gql, graphql, QueryProps, MutationFunc } from 'react-apollo';
 import Error from './Error';
 import TeamEntryForm from './TeamEntryForm';
+import { OperationVariables } from 'react-apollo/types';
+// import { OperationVariables } from 'react-apollo/types';
 
-class TeamEntry extends React.Component<any, any> {
+interface State {
+    error: boolean;
+}
+
+interface ParentProps {
+    location: {
+        pathname: string
+    };
+}
+
+type MutationPayload = {
+    teamLogin: {
+        ok: boolean;
+    }
+};
+  
+type MutationInput = {
+    url: string;
+    password: string; 
+    email: string
+ };
+  
+interface AllProps extends ParentProps {
+    data?: QueryProps<OperationVariables> & Partial<{ teamFromUrl: {
+        ok: boolean;
+        name: string;
+        url: string;
+    } }>;
+    mutate: MutationFunc<MutationPayload, MutationInput>;
+}  
+
+class TeamEntry extends React.Component<AllProps, State> {
     state = {
         error: false
     };
@@ -20,27 +53,27 @@ class TeamEntry extends React.Component<any, any> {
     // how to deal with graphql query should be in the same place as the component making 
     // the queries. 
 
-
     render() {
-        if (this.props.data.loading === true) return null;
-        const {data} = this.props;
-        if (data.teamFromUrl.ok === false) return <Glitch />;
+        if (!this.props.data) { return null; }
+        if (this.props.data.loading === true) { return null; }
+        const data = this.props.data.teamFromUrl;
+        if (!data) { return null; }
+        if (!data.ok) { return <Glitch />; }
         const {error} = this.state;
-        return this.props.data.loading ? null : (
+        return (
             <div className="TeamEntry">
                 <WelcomeHeader />
                 <Error visable={error}>
                     Sorry, you entered an incorrect email address or password.       
                 </Error>
                 <div className="TeamEntryMain">
-                    <h1>Sign in to {data.teamFromUrl.name}</h1>
-                    <h4>{data.teamFromUrl.url}</h4>
+                    <h1>Sign in to {data.name}</h1>
+                    <h4>{data.url}</h4>
                     <h5>Enter your <b>email address</b> and <b>password.</b></h5>
                     <TeamEntryForm 
                         teamLogin={this.props.mutate} 
-                        data={this.props.data} 
                         setError={this.setError} 
-                        url={data.teamFromUrl.url}
+                        url={data.url}
                     />
                 </div>
                 <p>Trying to create a workspace? <a href="#">Create a new workspace</a></p>
@@ -75,12 +108,16 @@ const teamLogin = gql`
     }
 `;
 
-export default graphql(teamFromUrl, 
-    {options: (ownProps: any) => {
-        return {
-            variables: 
-                {url: ownProps.match.params.team }
+// couldnt figure out this type
+export default graphql<{}, any>( // tslint:disable-line 
+    teamFromUrl,
+    {
+    options: ownProps => (
+            {
+                variables: {
+                    url: ownProps.match.params.team 
+                }
             }
-        }
+        )
     }
 )((graphql(teamLogin))(TeamEntry));
