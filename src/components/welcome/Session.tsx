@@ -2,9 +2,9 @@ import * as React from 'react';
 import { gql, graphql, compose, QueryProps, MutationFunc } from 'react-apollo';
 import { OperationVariables } from 'react-apollo/types';
 import Error from './Error';
-import { NewTeamButton } from './Buttons'; 
+import { SessionButton } from './Buttons'; 
 import { newUserDisplay, existingUserDisplay } from './displays';
-import './NewTeam.css';
+import './Session.css';
 const logo = require('../../assets/logo.png');
 
 interface ParentProps {
@@ -37,16 +37,18 @@ interface State {
     ready: boolean;
     error: boolean;
     errorMsg: string;
+    hasNameBeenFocused: boolean;
 }
 
-class NewTeam extends React.Component<AllProps, State> {
+class Session extends React.Component<AllProps, State> {
     state = {
         email: '', 
         username: '', 
         password: '', 
         ready: false, 
         error: false, 
-        errorMsg: ''
+        errorMsg: '',
+        hasNameBeenFocused: false,
     };
     url = this.props.location.pathname;
     getDisplay = () => (
@@ -83,19 +85,21 @@ class NewTeam extends React.Component<AllProps, State> {
         }
     }
 
+    handleFocus = () => this.setState({hasNameBeenFocused: true});
+
     render() {
-        const {username, password, email, errorMsg, ready} = this.state;
-        const {handleSubmit, handleChange, getDisplay} = this;
+        const {username, password, email, errorMsg, ready, hasNameBeenFocused} = this.state;
+        const {handleSubmit, handleChange, handleFocus, getDisplay} = this;
         return (
-            <div className="NewTeam">
-                <div className="NewTeamHeader">
+            <div className="Session">
+                <div className="SessionHeader">
                     <img src={logo}/>
                     <h2>Lively</h2>
                 </div>
-                <div className="NewTeamMain">
+                <div className="SessionMain">
                     {getDisplay()}
                     <form action="post" onSubmit={handleSubmit}>
-                        <div className="NewTeamMainLabel"><b>Your email</b></div>
+                        <div className="SessionMainLabel"><b>Your email</b></div>
                         <input 
                             placeholder="you@example.com" 
                             name="email"
@@ -103,8 +107,9 @@ class NewTeam extends React.Component<AllProps, State> {
                             value={email}
                             onChange={handleChange}
                             spellCheck={false}
+                            autoComplete="off"
                         />
-                        <div className="NewTeamMainLabel"><b>Display name</b></div>
+                        <div className="SessionMainLabel"><b>Display name</b></div>
                         <input 
                             placeholder="Display name" 
                             name="username"
@@ -112,8 +117,10 @@ class NewTeam extends React.Component<AllProps, State> {
                             value={username}
                             onChange={handleChange}
                             spellCheck={false}
+                            readOnly={!hasNameBeenFocused}
+                            onFocus={handleFocus}
                         />
-                        <div className="NewTeamMainLabel"><b>Password</b></div>
+                        <div className="SessionMainLabel"><b>Password</b></div>
                         <input 
                             placeholder="Display name" 
                             name="password"
@@ -122,13 +129,13 @@ class NewTeam extends React.Component<AllProps, State> {
                             onChange={handleChange}
                             spellCheck={false}
                         />
-                        <div className="NewTeamButtonWrap">
-                        <div className="NewTeamError">
+                        <div className="SessionButtonWrap">
+                        <div className="SessionError">
                             <Error visable={errorMsg !== ''}>
                                 {errorMsg}
                             </Error>
                         </div>
-                        <NewTeamButton enabled={ready} msg="Submit" />
+                        <SessionButton enabled={ready} msg="Submit" />
                         </div>
                     </form>
                 </div>
@@ -171,4 +178,4 @@ mutation createUser($email: String!, $password: String!, $username: String!) {
 export default compose (
 graphql(loginUser, {name: 'loginUser'}),
 graphql(createUser, {name: 'createUser'}),
-)(NewTeam);
+)(Session);

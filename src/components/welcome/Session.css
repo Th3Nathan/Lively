@@ -1,8 +1,14 @@
-.NewTeamHeader {
+.Session input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    box-shadow: 0 0 0px 1000px white inset;
+}
+
+
+.SessionHeader {
     display: flex;
 }
 
-.NewTeamHeader img {
+.SessionHeader img {
     width: 49px;
     height: 49px;
     left: 5px;
@@ -11,7 +17,7 @@
     cursor: pointer;
 }
 
-.NewTeamHeader h2 {
+.SessionHeader h2 {
     position: relative;
     font-weight: 600;
     letter-spacing: -2.5px;
@@ -22,21 +28,21 @@
     cursor: pointer;
 }
 
-.NewTeamMain {
+.SessionMain {
     width: 480px;
     color: #2c2d30;
     margin: auto;
     margin-top: -30px;
 }
 
-.NewTeamMain h1 {
+.SessionMain h1 {
     font-weight: 100;
     font-family: Lato;
     letter-spacing: 1px;
     font-size: 41px;
 }
 
-.NewTeamMain p {
+.SessionMain p {
     font-size: 1.25rem;
     color: #717274;
     margin-bottom: 2rem;
@@ -46,7 +52,7 @@
     line-height: 22px;
 }
 
-.NewTeam input {
+.Session input {
     font-size: 1.25rem;
     line-height: normal;
     padding: .75rem;
@@ -61,19 +67,19 @@
     margin-bottom: 30px;
 }
 
-.NewTeam input:focus {
+.Session input:focus {
     border-color: #717274;
 }
 
-.NewTeamMainLabel {
+.SessionMainLabel {
     margin-bottom: 15px;
 }
 
-.NewTeamButtonWrap {
+.SessionButtonWrap {
     text-align: center;
 }
 
-.NewTeam .Error {
+.Session .Error {
     margin: auto;
     width: 380px;
     text-align: left;
@@ -84,16 +90,16 @@
     margin-bottom: 20px;
 }
 
-.NewTeamError {
+.SessionError {
     position: relative;
     height: 30px;
 }
 
-.NewTeamMain a {
+.SessionMain a {
     text-decoration: none;
     color: darkcyan;
 }
 
-.NewTeamMain a:hover {
+.SessionMain a:hover {
     text-decoration: underline;
 } 

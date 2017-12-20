@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/jest": "^21.1.8",
     "@types/lodash": "^4.14.86",
     "@types/lodash.flowright": "^3.5.3",
+    "@types/node": "^8.0.54",
+    "@types/react": "^16.0.25",
+    "@types/react-dom": "^16.0.3",
     "@types/react-modal": "^2.2.2",
     "@types/react-redux": "^4.4.47",
     "@types/react-router-dom": "^4.2.3",
@@ -19,18 +23,14 @@
     "react": "^16.2.0",
     "react-apollo": "^1.4.16",
     "react-dom": "^16.2.0",
-    "react-modal": "^3.1.6",
+    "react-modal": "^3.1.7",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.8.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "tslint": "^5.8.0",
-    "@types/jest": "^21.1.8",
-    "@types/node": "^8.0.54",
-    "@types/react": "^16.0.25",
-    "@types/react-dom": "^16.0.3"
+    "tslint": "^5.8.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",

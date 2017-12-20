@@ -26,8 +26,8 @@ interface NTBInput {
     msg: string;
 } 
 
-export const NewTeamButton = ({enabled, msg}: NTBInput) => {
-    let className = enabled ? 'newteam' : 'newteamdisabled';
+export const SessionButton = ({enabled, msg}: NTBInput) => {
+    let className = enabled ? 'session' : 'sessiondisabled';
     return (
         <button type="submit" className={`Button ${ className }`}>
                 {msg} <span> 

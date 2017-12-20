@@ -11,6 +11,7 @@ interface State {
     badEmail: boolean; 
     badPassword: boolean;
     shouldFocus: boolean;
+    hasWrittenInEmail: boolean;
 }
 
 type MutationPayload = {
@@ -39,6 +40,7 @@ class TeamEntryForm extends React.Component<Props, State> {
         badEmail: false,
         badPassword: false,
         shouldFocus: false,
+        hasWrittenInEmail: false,
     };
 
     badInputStyle = {border: '1px solid #d72b3f', background: '#fbeaec'};
@@ -121,10 +123,13 @@ class TeamEntryForm extends React.Component<Props, State> {
         }
     }
 
+    // this is to disable autocomplete, chrome does not respect autoComplete="off"
+    handleFocus = () => this.setState({hasWrittenInEmail: true});
+
     render() {
-        const {badEmail, badPassword, email, password, loading} = this.state;
+        const {badEmail, badPassword, email, password, loading, hasWrittenInEmail} = this.state;
         return (
-            <form action="post" onSubmit={this.handleSubmit}> 
+            <form action="post" autoComplete="disable" onSubmit={this.handleSubmit}> 
                 <div className="TeamEntryInputs">
                     <input 
                         style={badEmail ? this.badInputStyle : {}}
@@ -136,6 +141,8 @@ class TeamEntryForm extends React.Component<Props, State> {
                         onChange={this.handleChange} 
                         spellCheck={false}
                         onBlur={() => this.checkBadFields(false)}
+                        onFocus={this.handleFocus}
+                        readOnly={!hasWrittenInEmail}
                     />
                     <input 
                         style={badPassword ? this.badInputStyle : {}}
@@ -143,6 +150,7 @@ class TeamEntryForm extends React.Component<Props, State> {
                         ref={this.focus('password')}
                         name="password" 
                         type="password" 
+                       
                         value={password} 
                         onChange={this.handleChange} 
                         spellCheck={false}

@@ -4,6 +4,12 @@
     margin-top: 70px;
 }
 
+.Signin input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    box-shadow: 0 0 0px 1000px white inset;
+}
+
+
 .Signin a {
     color: #0576b9;
     font-weight: 700;

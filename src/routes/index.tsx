@@ -7,14 +7,14 @@ import {
 // import Home from './home';
 import Signin from '../components/welcome/Signin';
 import TeamEntry from '../components/welcome/TeamEntry';
-import NewTeam from '../components/welcome/NewTeam';
+import Session from '../components/welcome/Session';
 import Home from '../components/App';
 export default () => (
     <BrowserRouter> 
         <Switch>
             <Route path="/" exact={true} component={Signin} />
-            <Route path="/createnew" exact={true} component={NewTeam} /> 
-            <Route path="/createexisting" exact={true} component={NewTeam} /> 
+            <Route path="/createnew" exact={true} component={Session} /> 
+            <Route path="/createexisting" exact={true} component={Session} /> 
             <Route path="/home" exact={true} component={Home} />
             <Route path="/:team" exact={true} component={TeamEntry}/>
         </Switch>
