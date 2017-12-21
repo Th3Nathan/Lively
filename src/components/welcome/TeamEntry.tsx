@@ -66,7 +66,7 @@ class TeamEntry extends React.Component<AllProps, State> {
                 </Error>
                 <div className="TeamEntryMain">
                     <h1>Sign in to {response.name}</h1>
-                    <h4>{response.url}</h4>
+                    <h4>liv3ly.herokuapp.com/{response.url}</h4>
                     <h5>Enter your <b>email address</b> and <b>password.</b></h5>
                     <TeamEntryForm 
                         teamLogin={props.mutate} 

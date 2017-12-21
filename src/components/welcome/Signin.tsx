@@ -70,7 +70,7 @@ class Signin extends React.Component<GraphQLProps, State> {
                     <h5>Enter your workspace's <b>Lively URL</b></h5>
                     <form action="post" onSubmit={this.handleSubmit}> 
                         <div className="SigninInputWrap">
-                            <div>lively.com/</div>
+                            <div>liv3ly.herokuapp.com/</div>
                             <input 
                                 placeholder="your-workspace-url" 
                                 type="text" 
@@ -82,9 +82,8 @@ class Signin extends React.Component<GraphQLProps, State> {
                         </div>
                         {this.state.loading ? Loading() : Submit('arrow-right', 'Continue')}
                     </form>
-                    <p>Don't know your workspace URL? <a href="#">Find your workspace</a></p>
                 </div>
-                <p>Need to get your group started on Lively? <a href="#">Create a new workspace</a></p>
+                <p>Need to get your group started on Lively? <a href="/signup">Create a new workspace</a></p>
                 <WelcomeFooter />
             </div>
         );

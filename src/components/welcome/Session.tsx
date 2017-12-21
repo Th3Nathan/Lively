@@ -50,9 +50,11 @@ class Session extends React.Component<AllProps, State> {
         errorMsg: '',
         hasNameBeenFocused: false,
     };
+
     url = this.props.location.pathname;
+
     getDisplay = () => (
-        this.url === '/createnew' ? newUserDisplay() : existingUserDisplay()
+        this.url === '/signup' ? newUserDisplay() : existingUserDisplay()
     )
 
     handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -71,7 +73,7 @@ class Session extends React.Component<AllProps, State> {
         this.setState({ready: false});
         let user = (({username, password, email}) => (
             {username, password, email}))(this.state);
-        let mutation = (this.url === '/createnew') ? 'createUser' : 'loginUser';
+        let mutation = (this.url === '/signup') ? 'createUser' : 'loginUser';
         try {
             let response = await this.props[mutation]({variables: user});
             let data = response.data[mutation];
