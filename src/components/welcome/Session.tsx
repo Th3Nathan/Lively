@@ -15,9 +15,7 @@ interface ParentProps {
 
 interface Response {
     ok: boolean;
-    error: {
-        message: string
-    };
+    errors: [{message: string}];
     user: {
         username: string;
         id: number;
@@ -77,7 +75,7 @@ class Session extends React.Component<AllProps, State> {
         try {
             let response = await this.props[mutation]({variables: user});
             let data = response.data[mutation];
-            let errorMsg = data.ok ? '' : data.error.message;
+            let errorMsg = data.ok ? '' : data.errors[0].message;
             setTimeout(
                 () => this.setState({errorMsg, ready: true}),
                 1000
@@ -150,7 +148,7 @@ const createUser = gql`
 mutation createUser($email: String!, $password: String!, $username: String!) {
     createUser(input: {email: $email, password: $password, username: $username}) {
         ok
-        error {
+        errors {
             message
         }
         user {
@@ -166,7 +164,7 @@ const loginUser = gql`
 mutation createUser($email: String!, $password: String!, $username: String!) {
     loginUser(input: {email: $email, password: $password, username: $username}) {
         ok
-        error {
+        errors {
             message
         }
         user {

@@ -58,7 +58,6 @@ class NewTeam extends React.Component<GraphQLProps, State> {
             if (!createdTeam.ok) {
                 newState.error = createdTeam.errors[0].message;
             }
-            debugger
             setTimeout(
                 () => {  
                     this.setState(newState);
