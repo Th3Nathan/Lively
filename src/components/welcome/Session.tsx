@@ -16,6 +16,8 @@ interface ParentProps {
 interface Response {
     ok: boolean;
     errors: [{message: string}];
+    token: String;
+    refreshToken: String;
     user: {
         username: string;
         id: number;
@@ -89,7 +91,7 @@ class Session extends React.Component<AllProps, State> {
 
     render() {
         const {username, password, email, errorMsg, ready, hasNameBeenFocused} = this.state;
-        const {handleSubmit, handleChange, handleFocus, getDisplay} = this;
+        const {handleSubmit, handleChange, handleFocus, getDisplay, url} = this;
         return (
             <div className="Session">
                 <div className="SessionHeader">
@@ -109,17 +111,23 @@ class Session extends React.Component<AllProps, State> {
                             spellCheck={false}
                             autoComplete="off"
                         />
-                        <div className="SessionMainLabel"><b>Display name</b></div>
-                        <input 
-                            placeholder="Display name" 
-                            name="username"
-                            type="text" 
-                            value={username}
-                            onChange={handleChange}
-                            spellCheck={false}
-                            readOnly={!hasNameBeenFocused}
-                            onFocus={handleFocus}
-                        />
+                        {url === '/signin' ? null : (
+
+                            <div className="SessionMainLabel"><b>Display name</b>
+                            <input 
+                                style={{margin: '14px 0px 11px 0px'}}
+                                placeholder="Display name" 
+                                name="username"
+                                type="text" 
+                                value={username}
+                                onChange={handleChange}
+                                spellCheck={false}
+                                readOnly={!hasNameBeenFocused}
+                                onFocus={handleFocus}
+                            />
+                            </div>
+                        )
+                        }
                         <div className="SessionMainLabel"><b>Password</b></div>
                         <input 
                             placeholder="Display name" 
