@@ -102,6 +102,8 @@ const teamLogin = gql`
                 id 
                 email
             }
+            token
+            refreshToken
         }
     }
 `;

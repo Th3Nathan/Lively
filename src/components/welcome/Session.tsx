@@ -2,6 +2,7 @@ import * as React from 'react';
 import { gql, graphql, compose, QueryProps, MutationFunc } from 'react-apollo';
 import { OperationVariables } from 'react-apollo/types';
 import Error from './Error';
+import {handleTokens} from './../../util';
 import { SessionButton } from './Buttons'; 
 import { NewUserDisplay, ExistingUserDisplay } from './displays';
 import './Session.css';
@@ -75,6 +76,10 @@ class Session extends React.Component<AllProps, State> {
             let response = await this.props[mutation]({variables: user});
             let data = response.data[mutation];
             let errorMsg = data.ok ? '' : data.errors[0].message;
+            handleTokens({
+                token: data.token,
+                refreshToken: data.refreshToken,
+            });
             setTimeout(
                 () => this.setState({errorMsg, ready: true}),
                 1000
@@ -156,6 +161,8 @@ mutation createUser($email: String!, $password: String!, $username: String!) {
             id 
             email
         }
+        token
+        refreshToken
     }
 }
 `;
@@ -172,6 +179,8 @@ mutation createUser($email: String!, $password: String!, $username: String!) {
             id 
             email
         }
+        token
+        refreshToken
     }
 }
 `;

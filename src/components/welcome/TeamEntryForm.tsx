@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './TeamEntry.css';
+import { handleTokens } from '../../util';
 import { Submit, Loading } from './Buttons';
 import { validateEmail } from '../../util';
 import { MutationFunc } from 'react-apollo';
@@ -17,6 +18,8 @@ interface State {
 type MutationPayload = {
     teamLogin: {
         ok: boolean;
+        token?: string;
+        refreshToken?: string;
     }
 };
   
@@ -110,7 +113,10 @@ class TeamEntryForm extends React.Component<Props, State> {
             let response = await this.props.teamLogin({ variables: {email, password, url }});
             if (!response.data) { throw 'Lost Connection to server'; } // use redux to throw error page if server down?
             if (response.data.teamLogin.ok) {
-                // WIN 
+                handleTokens({
+                    token: response.data.teamLogin.token,
+                    refreshToken: response.data.teamLogin.refreshToken,
+                })
             } else {
                 error = true;
             }

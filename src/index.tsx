@@ -26,6 +26,7 @@ const store = createStore<StoreState>(reducers, initialState, applyMiddleware(..
 import Routes from './routes/index';
 import ApolloClient from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
+import { ApolloLink, concat } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 
@@ -34,8 +35,20 @@ const localUrl = 'http://localhost:8080/graphql';
 
 const uri = process.env.NODE_ENV === 'production' ? apiUrl : localUrl;
 
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  operation.setContext({
+    headers: {
+      ['x-token']: localStorage.getItem('token') || null,
+      ['x-refresh-token']: localStorage.getItem('refreshToken') || null,
+    } 
+  });
+
+  return forward!(operation);
+})
+
 const client = new ApolloClient({
-  link: new HttpLink({ uri }),
+  link: concat(authMiddleware, new HttpLink({ uri })),
   cache: new InMemoryCache(),
 });
 
