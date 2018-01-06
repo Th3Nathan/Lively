@@ -45,15 +45,14 @@ class NewTeam extends React.Component<GraphQLProps, State> {
     handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!validTeamName(this.state.name)) {
-            this.setState({error: 'Invalid team name'})
+            this.setState({error: 'Invalid team name'});
             return;
         }
-        let createTeam = this.props.mutate;
         this.setState({ loading: true });
         const newState = { error: '', loading: false };
         try {
             const name = this.state.name;
-            const response = await createTeam!({ variables: { name }});
+            const response = await this.props.mutate!({ variables: { name }});
             const createdTeam = response.data.createTeam;
             if (!createdTeam.ok) {
                 newState.error = createdTeam.errors[0].message;
@@ -68,7 +67,7 @@ class NewTeam extends React.Component<GraphQLProps, State> {
                 1000
             );
         } catch (err) {
-            console.log(err);
+            console.log(err); // tslint:disable-line
         } 
     }
 

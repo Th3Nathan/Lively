@@ -11,15 +11,14 @@ export const validateEmail = (email: string): boolean => {
     return re.test(email);
 };
 
-
 interface Tokens {
     token?: string;
     refreshToken?: string;
 }
 export const handleTokens = ({token, refreshToken}: Tokens) => {
     if (!token || !refreshToken) {
-        throw "Expecting tokens but none received";
+        throw 'Expecting tokens but none received';
     }
     localStorage.setItem('x-token', token);
     localStorage.setItem('x-refresh-token', refreshToken);
-}
+};

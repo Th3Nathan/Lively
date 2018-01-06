@@ -116,7 +116,7 @@ class TeamEntryForm extends React.Component<Props, State> {
                 handleTokens({
                     token: response.data.teamLogin.token,
                     refreshToken: response.data.teamLogin.refreshToken,
-                })
+                });
             } else {
                 error = true;
             }

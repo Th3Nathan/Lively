@@ -2,7 +2,7 @@ import * as React from 'react';
 import { gql, graphql, compose, QueryProps, MutationFunc } from 'react-apollo';
 import { OperationVariables } from 'react-apollo/types';
 import Error from './Error';
-import {handleTokens} from './../../util';
+import { handleTokens } from './../../util';
 import { SessionButton } from './Buttons'; 
 import { NewUserDisplay, ExistingUserDisplay } from './displays';
 import './Session.css';
@@ -11,6 +11,9 @@ const logo = require('../../assets/logo.png');
 interface ParentProps {
     location: {
         pathname: string
+    };
+    history: {
+        push: (url: string) => void;
     };
 }
 
@@ -58,7 +61,7 @@ class Session extends React.Component<AllProps, State> {
     }
 
     allValid = ({username, password, email}: State) => {
-        if (this.url === '/signup'){
+        if (this.url === '/signup') {
             return !!(username && email && password);
         } else {
             return !!(email && password);
@@ -76,16 +79,19 @@ class Session extends React.Component<AllProps, State> {
             let response = await this.props[mutation]({variables: user});
             let data = response.data[mutation];
             let errorMsg = data.ok ? '' : data.errors[0].message;
-            handleTokens({
-                token: data.token,
-                refreshToken: data.refreshToken,
-            });
+            if (data.ok) {
+                handleTokens({
+                    token: data.token,
+                    refreshToken: data.refreshToken,
+                });
+                this.props.history.push('newteam');
+            }
             setTimeout(
                 () => this.setState({errorMsg, ready: true}),
                 1000
             );
         } catch (err) {
-            throw "Problem connecting with server!";
+            throw 'Problem connecting with server!';
         }
     }
 

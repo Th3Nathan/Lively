@@ -12,7 +12,7 @@ class WelcomeHeader extends React.Component {
                     <h2>Lively</h2>
                 </a>
                 <div className="WelcomeNavs flex">
-                    <a href="/createnew">
+                    <a href="/newteam">
                         Create a new workspace
                     </a>
                     <a href="#"> 
