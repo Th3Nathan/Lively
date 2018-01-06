@@ -74,7 +74,7 @@ class TeamEntry extends React.Component<AllProps, State> {
                         url={response.url}
                     />
                 </div>
-                <p>Trying to create a workspace? <a href="#">Create a new workspace</a></p>
+                <p>Trying to create a workspace? <a href="/newteam">Create a new workspace</a></p>
                 <WelcomeFooter />
             </div>
         );

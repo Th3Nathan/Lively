@@ -3,7 +3,7 @@ import { gql, graphql, compose, QueryProps, MutationFunc } from 'react-apollo';
 import { OperationVariables } from 'react-apollo/types';
 import Error from './Error';
 import { SessionButton } from './Buttons'; 
-import { newUserDisplay, existingUserDisplay } from './displays';
+import { NewUserDisplay, ExistingUserDisplay } from './displays';
 import './Session.css';
 const logo = require('../../assets/logo.png');
 
@@ -35,9 +35,7 @@ interface State {
     username: string;
     password: string;
     ready: boolean;
-    error: boolean;
     errorMsg: string;
-    hasNameBeenFocused: boolean;
 }
 
 class Session extends React.Component<AllProps, State> {
@@ -46,27 +44,25 @@ class Session extends React.Component<AllProps, State> {
         username: '', 
         password: '', 
         ready: false, 
-        error: false, 
         errorMsg: '',
-        hasNameBeenFocused: false,
     };
 
     url = this.props.location.pathname;
 
-    getDisplay = () => (
-        this.url === '/signup' ? newUserDisplay() : existingUserDisplay()
-    )
-
     handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         let newState = this.state;
         newState[e.currentTarget.name] = e.currentTarget.value;
-        newState = Object.assign(newState, {ready: this.allValid(newState)});
+        newState = {...newState, ready: this.allValid(newState)};
         this.setState(newState);
     }
 
-    allValid = ({username, password, email}: State) => (
-        username && email && password
-    )
+    allValid = ({username, password, email}: State) => {
+        if (this.url === '/signup'){
+            return !!(username && email && password);
+        } else {
+            return !!(email && password);
+        }
+    }
 
     handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -75,6 +71,7 @@ class Session extends React.Component<AllProps, State> {
             {username, password, email}))(this.state);
         let mutation = (this.url === '/signup') ? 'createUser' : 'loginUser';
         try {
+            // try to authenticate
             let response = await this.props[mutation]({variables: user});
             let data = response.data[mutation];
             let errorMsg = data.ok ? '' : data.errors[0].message;
@@ -83,15 +80,13 @@ class Session extends React.Component<AllProps, State> {
                 1000
             );
         } catch (err) {
-            throw 'Disconnected from server'; // redirect to glitch page would be better
+            throw "Problem connecting with server!";
         }
     }
 
-    handleFocus = () => this.setState({hasNameBeenFocused: true});
-
     render() {
-        const {username, password, email, errorMsg, ready, hasNameBeenFocused} = this.state;
-        const {handleSubmit, handleChange, handleFocus, getDisplay, url} = this;
+        const {username, password, email, errorMsg, ready} = this.state;
+        const {handleSubmit, handleChange, url} = this;
         return (
             <div className="Session">
                 <div className="SessionHeader">
@@ -99,7 +94,7 @@ class Session extends React.Component<AllProps, State> {
                     <h2>Lively</h2>
                 </div>
                 <div className="SessionMain">
-                    {getDisplay()}
+                    {this.url === '/signup' ? <NewUserDisplay /> : <ExistingUserDisplay />}
                     <form action="post" onSubmit={handleSubmit}>
                         <div className="SessionMainLabel"><b>Your email</b></div>
                         <input 
@@ -109,7 +104,6 @@ class Session extends React.Component<AllProps, State> {
                             value={email}
                             onChange={handleChange}
                             spellCheck={false}
-                            autoComplete="off"
                         />
                         {url === '/signin' ? null : (
 
@@ -122,15 +116,13 @@ class Session extends React.Component<AllProps, State> {
                                 value={username}
                                 onChange={handleChange}
                                 spellCheck={false}
-                                readOnly={!hasNameBeenFocused}
-                                onFocus={handleFocus}
                             />
                             </div>
                         )
                         }
                         <div className="SessionMainLabel"><b>Password</b></div>
                         <input 
-                            placeholder="Display name" 
+                            placeholder="Enter Password" 
                             name="password"
                             type="password" 
                             value={password}

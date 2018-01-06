@@ -9,6 +9,10 @@
     box-shadow: 0 0 0px 1000px white inset;
 }
 
+.NewTeamMainUrl {
+    text-align: 'left';
+    margin-left: '150px';
+}
 
 .Signin a, .NewTeam a {
     color: #0576b9;

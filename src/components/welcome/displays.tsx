@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const newUserDisplay = () => (
+export const NewUserDisplay = () => (
     <div>
         <h1>Introduce Yourself!</h1>
         <p>
@@ -11,7 +11,7 @@ export const newUserDisplay = () => (
     </div>
 );
 
-export const existingUserDisplay = () => (
+export const ExistingUserDisplay = () => (
     <div>
         <h1>Welcome Back!</h1>
         <p>Please log in with your credentials to create a new workspace.</p>

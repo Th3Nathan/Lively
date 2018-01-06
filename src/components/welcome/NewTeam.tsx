@@ -83,7 +83,7 @@ class NewTeam extends React.Component<GraphQLProps, State> {
                 <div className="NewTeamMain">
                     <h1>Create a new Workspace!</h1>
                     <h5>Workspace address:</h5> 
-                    <h5 style={{textAlign: 'left', marginLeft: '150px'}}>
+                    <h5 className="NewTeamMainUrl">
                         <b>liv3ly.herokuapp.com/{stringToTeamName(name)}</b>
                     </h5>
                     <form action="post" onSubmit={this.handleSubmit}> 
