@@ -39,11 +39,8 @@ class Signin extends React.Component<GraphQLProps, State> {
         const url = this.state.url;
         try {
             const response = await this.props.mutate!({ variables: { url } });
-            const actualTeamEntered = response.data.doesTeamExist;
-            newState.error = !actualTeamEntered;
-        } catch (err) {
-            throw 'Server is down';
-        } finally {
+            const isExistingTeam = response.data.doesTeamExist;
+            newState.error = !isExistingTeam;
             setTimeout(
                 () => {  
                     this.setState(newState);
@@ -53,6 +50,8 @@ class Signin extends React.Component<GraphQLProps, State> {
                 }, 
                 1000
             );
+        } catch (err) {
+            throw 'Server is down';
         }
     }
 
