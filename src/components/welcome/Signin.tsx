@@ -75,7 +75,6 @@ class Signin extends React.Component<GraphQLProps, State> {
                                 type="text" 
                                 value={this.state.url} 
                                 onChange={this.handleChange} 
-                                autoComplete="off"
                                 spellCheck={false}
                             />
                         </div>
