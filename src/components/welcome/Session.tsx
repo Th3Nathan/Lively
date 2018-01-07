@@ -85,11 +85,12 @@ class Session extends React.Component<AllProps, State> {
                     refreshToken: data.refreshToken,
                 });
                 this.props.history.push('newteam');
+            } else {
+                setTimeout(
+                    () => this.setState({errorMsg, ready: true}),
+                    1000
+                );
             }
-            setTimeout(
-                () => this.setState({errorMsg, ready: true}),
-                1000
-            );
         } catch (err) {
             throw 'Problem connecting with server!';
         }

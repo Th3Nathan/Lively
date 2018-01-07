@@ -39,8 +39,8 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   operation.setContext({
     headers: {
-      ['x-token']: localStorage.getItem('token') || null,
-      ['x-refresh-token']: localStorage.getItem('refreshToken') || null,
+      ['x-token']: localStorage.getItem('x-token') || null,
+      ['x-refresh-token']: localStorage.getItem('x-refresh-token') || null,
     } 
   });
 
